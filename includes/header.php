@@ -32,6 +32,9 @@ $location = str_replace('http://', '', $url); ?>
 
     <body>
 
-        <header></header>
+        <header>
+            
 
         <main>
+
+
