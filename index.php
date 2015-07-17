@@ -6,6 +6,8 @@
 		<div class="content toptext halfcolumn">
 			<img class="cursive fullwidth" alt="The Celebration" src="img/celebration.png">
 			<h3>Join us for Dinner, Dancing &amp; Vows of Everlasting Commitment</h3>
+
+			<p>We will be legally locking this down in a private courthouse ceremony with immediate family members. We invite you to join us for the celebration which will involving eat, drinking, dancing and a as much affirmation of our committment as we can muster.</p>
 			<p>Saturday, May 21, 2016 <br>
 				at five in the evening</p>
 			<p>Long View Gallery<br>
