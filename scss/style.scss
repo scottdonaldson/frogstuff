@@ -7,6 +7,8 @@
 //-----------COLORS
 
 $grey: #666;
+$peagreen: #e0ddae;
+$greenbean: #a5ad97;
 
 //-----------FONTS
 
@@ -48,13 +50,72 @@ $grey: #666;
 
 }
 
-h1, h2, h3, h4, h5, h6, p, a {
-	font-family: 'museo', Arial, sans-serif;
-	font-weight: normal;
-	color: $grey;
+/* The fonts included are copyrighted by the vendor listed below.
+ *
+ * Vendor:      Mostardesign
+ * License URL: http://www.fontspring.com/licenses/mostardesign/webfont
+ *
+ *
+ */
+
+@font-face {
+    font-family: 'sofia';
+    src: url('../fonts/SofiaProLight-webfont.eot');
+    src: url('../fonts/SofiaProLight-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/SofiaProLight-webfont.woff2') format('woff2'),
+         url('../fonts/SofiaProLight-webfont.woff') format('woff'),
+         url('../fonts/SofiaProLight-webfont.ttf') format('truetype'),
+         url('../fonts/SofiaProLight-webfont.svg#sofia_prolight') format('svg');
+    font-weight: normal;
+    font-style: normal;
 
 }
 
+@font-face {
+    font-family: 'sofia_condensed';
+    src: url('SofiaProLiCond-webfont.eot');
+    src: url('SofiaProLiCond-webfont.eot?#iefix') format('embedded-opentype'),
+         url('SofiaProLiCond-webfont.woff2') format('woff2'),
+         url('../fonts/SofiaProLiCond-webfont.woff') format('woff'),
+         url('../fonts/SofiaProLiCond-webfont.ttf') format('truetype'),
+         url('../fonts/SofiaProLiCond-webfont.svg#sofia_pro_condensedlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+//-------------Basic Stuff
+
+h1, h2, h3, h4, h5, h6, p, a {
+	font-family: 'sofia', Arial, sans-serif;
+	font-weight: normal;
+	color: $grey;
+	line-height: 150%;
+}
+
+html{
+	overflow-x:hidden;
+}
+
+a, a:visited {
+	color: $greenbean;
+}
+
+a:hover {
+	opacity: .8;
+}
+
+.background-img {
+	background: $grey;
+}
+
+::selection {
+  background: $peagreen; 
+}
+::-moz-selection {
+  background: $peagreen; 
+
+}
 
 //-----------Content Grid
 
@@ -113,6 +174,7 @@ $halfcolumnpadding: 6%;
 
 //----------the Good Stuff
 
+
 .fullwidth{
 	width: 100% !important; 
 }
@@ -128,12 +190,37 @@ $halfcolumnpadding: 6%;
 }
 
 .wreath {
-	width: 70%;
+	width: 60%;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 60px 0;
 	position: relative;
+}
+
+.flower{
+	width: 7%;
+	position: absolute;
+}
+
+#flower-tl{
+	top:20px;
+}
+
+
+#flower-tr{
+  top: 0;
+  right: 37px;
+  width: 8%;
+}
+
+#flower-br{
+  bottom: 70px;
+  right: 0;
+}
+
+#flower-bl{
+  bottom: 0;
 }
 
 .toptext {
@@ -159,4 +246,77 @@ $halfcolumnpadding: 6%;
 	margin-left: auto;
 	padding: 60px 0;
 	clear: both;
+}
+
+.footer h5 {
+	color: #fff;
+	margin:0;
+	text-shadow: 1px 1px $grey;
+
+	a, a:visited {
+		color: #fff;
+	}
+
+}
+
+//-----------Responsive
+
+@media screen and (max-width: 1300px) {
+	.celebration {
+
+		div {
+			margin-top: 40px;
+			overflow:hidden;
+		}
+
+		.background-img{
+			width:120%;
+			margin-left:-80px;
+		} 
+
+	}
+
+}
+
+
+@media screen and (max-width: 1050px) {
+
+	.divider{
+		width: 40%;
+	}
+
+	.wreath {
+		width: 80%;
+	}
+
+	.flower{
+		display: none;
+	}
+
+	.halfcolumn {
+		width: 100%
+	}
+
+	.celebration{
+
+		div {
+			margin-top: 0;
+		}
+
+		.background-img {
+			display: none;
+		}
+
+		.toptext{
+			position: relative;
+			background: $grey;
+			margin-top:0;
+			padding-top: 50px;
+			padding-bottom: 50px;
+		}
+
+		.halfcolumn{
+			margin-top: 0;
+		}
+	}
 }

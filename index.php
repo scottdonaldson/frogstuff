@@ -1,7 +1,15 @@
 <?php include('includes/header.php'); ?>
 
-	<img class="wreath" src="img/wreath.png">
 	<div>
+		<img class="wreath" src="img/wreath.png">
+		<img id="flower-tl" class="flower" src="img/flower-tl.png">
+		<img id="flower-tr" class="flower" src="img/flower-tr.png">
+		<img id="flower-br" class="flower" src="img/flower-br.png">
+		<img id="flower-bl" class="flower" src="img/flower-bl.png">
+	</div>
+
+
+	<div class="celebration">
 		<img class="background-img" src="img/Lisa&Scott-17.jpg">
 		<div class="content toptext halfcolumn">
 			<img class="cursive fullwidth" alt="The Celebration" src="img/celebration.png">
@@ -20,7 +28,7 @@
 			<p> Morning After Reception <br>
 				Morrison Clark Hotel <br>
 				9am - 11am <br>
-				NO RSVP REQUIRED -- Just pop on in </p>
+				NO RSVP REQUIRED &mdash; Just pop on in </p>
 		</div>
 	</div>
 
@@ -48,7 +56,7 @@
 		</div>
 		<img class="halfcolumn clearfix" src="img/wreath.png" alt="">
 
-		<div class="halfcolumn right clearfix">
+		<div class="halfcolumn right clearfix clear">
 			<h3>A Local's Walking Tour</h3>
 			<p>Interested in a local’s stroll through DC? Head over to the MT Vernon Metro stop, buy yourself a metro card and take the the green line up to Columbia Heights (no transfers necessary!). Stop by Sticky Fingers (we literally lived three windows above) for a vegan muffin (you won’t even know! we promise!). After wandering through the Park, stop by Pho 14 for lunch and try the veggie Pho (It’s made with apples!). If you’ve still got gas in the engine, you can walk down to Dupont circle where you can check out Books-A-Million or Kramer Books and people watch. See, it’s not all brutalist office building after all! </p>
 			<a href="https://www.google.com/maps/d/edit?mid=zRNfw6tt-0CE.kzVJlxw6FzSg&usp=sharing" target="_blank">I'm ready to mosey!</a>
@@ -70,12 +78,13 @@
 			<a href="https://donate.doctorswithoutborders.org/onetime.cfm" alt="Donate to Doctor's Without Borders" target="_blank">Doctor's Without Borders</a><br>
 			<a href="https://donate.charitywater.org/donate" alt="Donate to Charity:Water" target="_blank">Charity:Water</a> 
 		</div>
+		<img class="halfcolumn clearfix" src="img/wreath.png" alt="">
 	</div>
 
 	<div>
 		<img class="background-img" src="img/Lisa&Scott-64.jpg">
 
-		<div class="content toptext twocolumn">
+		<div class="content toptext twocolumn footer">
 			<img class="cursive fullwidth" alt="See You there!" src="img/seeyouthere.png">
 			<h5>&copy; Lisa &amp; Scott 2006-divorce </h5>
 			<h5>All photos by <a href="http://uniquelapin.com" target="_blank">Unique Lapin</a>.</h5>
