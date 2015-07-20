@@ -248,13 +248,19 @@ $halfcolumnpadding: 6%;
 	clear: both;
 }
 
-.footer h5 {
-	color: #fff;
-	margin:0;
-	text-shadow: 1px 1px $grey;
+.footer {
 
-	a, a:visited {
+	position: absolute;
+	bottom: 60px;
+
+	h5 {
 		color: #fff;
+		margin:0;
+		text-shadow: 1px 1px $grey;
+
+		a, a:visited {
+			color: #fff;
+		}
 	}
 
 }

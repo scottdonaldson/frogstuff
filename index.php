@@ -83,11 +83,12 @@
 
 	<div>
 		<img class="background-img" src="img/Lisa&Scott-64.jpg">
-
-		<div class="content toptext twocolumn footer">
+		<div class="content toptext twocolumn">
 			<img class="cursive fullwidth" alt="See You there!" src="img/seeyouthere.png">
-			<h5>&copy; Lisa &amp; Scott 2006-divorce </h5>
-			<h5>All photos by <a href="http://uniquelapin.com" target="_blank">Unique Lapin</a>.</h5>
+		</div>
+		<div class="content twocolumn footer">
+				<h5>&copy; Lisa &amp; Scott 2006-divorce </h5>
+				<h5>All photos by <a href="http://uniquelapin.com" target="_blank">Unique Lapin</a>.</h5>
 		</div>
 	</div>
 
