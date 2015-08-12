@@ -17,7 +17,7 @@
         rowInput = $('#row'),
         addressInput = $('#address');
 
-    function buildURL(key) {
+    function buildURL(key1, key2) {
         return 'https://spreadsheets.google.com/feeds/cells/' + key1 + key2 + '/1/public/basic?alt=json';
     }
 
@@ -57,7 +57,7 @@
 
     function retrieveData() {
         $.ajax({
-            url: buildURL(key),
+            url: buildURL(key1, key2),
             success: parseResponse
         });
     }
