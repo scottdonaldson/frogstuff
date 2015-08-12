@@ -8,7 +8,11 @@ if ( isset($_GET['deploy-url']) ) {
 }
 
 // set the location
-$location = str_replace('http://', '', $url); ?>
+$location = str_replace('http://', '', $url);
+
+// body class
+$class = isset($class) ? $class : '';
+?>
 <!DOCTYPE html>
 <!--
 
@@ -74,9 +78,9 @@ aaadP"'             `""Yb,       .-'  _.'- '  _.-'     (
         <script src="<?= $url; ?>/js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
 
-    <body>
+    <body class="<?php echo $class; ?>">
 
-        <header>
+        <header></header>
 
 
         <main>

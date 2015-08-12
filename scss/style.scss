@@ -20,7 +20,7 @@ $greenbean: #a5ad97;
  * Fully installable fonts can be purchased at http://www.fontspring.com
  *
  * The fonts included in this stylesheet are subject to the End User License you purchased
- * from Fontspring. The fonts are protected under domestic and international trademark and 
+ * from Fontspring. The fonts are protected under domestic and international trademark and
  * copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
  * distributing this font software.
  *
@@ -110,10 +110,10 @@ a:hover {
 }
 
 ::selection {
-  background: $peagreen; 
+  background: $peagreen;
 }
 ::-moz-selection {
-  background: $peagreen; 
+  background: $peagreen;
 
 }
 
@@ -176,7 +176,7 @@ $halfcolumnpadding: 6%;
 
 
 .fullwidth{
-	width: 100% !important; 
+	width: 100% !important;
 }
 
 .header-photo {
@@ -265,6 +265,35 @@ $halfcolumnpadding: 6%;
 
 }
 
+// ---------- Save the Date
+
+.save-the-date {
+    background-image: url(../img/Lisa&Scott-56.jpg);
+    background-size: cover;
+    background-position: center 100%;
+    min-height: 100vh;
+}
+
+form {
+    input, textarea {
+        background: rgba(255, 255, 255, 0.5);
+        border: 0;
+        color: #666;
+        display: block;
+        clear: both;
+        float: right;
+        margin-bottom: 20px;
+        padding: 0.5em;
+        transition: 0.25s background;
+        width: 80%;
+
+        &:focus {
+            background: rgba(255, 255, 255, 0.9);
+            outline: 0;
+        }
+    }
+}
+
 //-----------Responsive
 
 @media screen and (max-width: 1300px) {
@@ -278,7 +307,7 @@ $halfcolumnpadding: 6%;
 		.background-img{
 			width:120%;
 			margin-left:-80px;
-		} 
+		}
 
 	}
 
