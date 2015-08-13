@@ -102,7 +102,7 @@ a, a:visited {
 }
 
 a:hover {
-	opacity: .8;
+	opacity: 0.8;
 }
 
 .background-img {
@@ -282,6 +282,7 @@ form {
         display: block;
         clear: both;
         float: right;
+        font-family: 'sofia';
         margin-bottom: 20px;
         padding: 0.5em;
         transition: 0.25s background;
@@ -292,6 +293,19 @@ form {
             outline: 0;
         }
     }
+}
+
+#greetings {
+    color: #fff;
+    float: right;
+    font-family: 'sofia';
+    font-size: 20px;
+    margin-bottom: 20px;
+    width: 80%;
+}
+
+#address {
+    height: 120px;
 }
 
 //-----------Responsive

@@ -2,6 +2,20 @@
 $class = 'save-the-date';
 include('includes/header.php'); ?>
 
+	<script>
+	function buildURL() {
+		var key1 = '1aS5R3rKitHu2WBDJvj66',
+	        key2 = 'UGRg2MgKwyjlowYZPAerUas';
+		return 'https://spreadsheets.google.com/feeds/cells/' + key1 + key2 + '/1/public/basic?alt=json';
+	}
+	function gup( name ) {
+		name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+			results = regex.exec( location.href );
+		return results == null ? null : results[1];
+	}
+	</script>
+
 	<div class="content">
 		<div class="halfcolumn clearfix">
 			<div class="toptext">
@@ -19,10 +33,9 @@ include('includes/header.php'); ?>
 					NO RSVP REQUIRED -- Just pop on in </p>
 			</div>
 		</div>
-		<div class="halfcolumn clearfix">
+		<div id="greetings-container" class="halfcolumn clearfix" style="display: none;">
+			<div id="greetings"></div>
 			<form>
-				<input id="name">
-				<input id="email">
 				<textarea id="address"></textarea>
 				<input type="submit">
 
@@ -31,7 +44,5 @@ include('includes/header.php'); ?>
 			</form>
 		</div>
 	</div>
-
-
 
 <?php include('includes/footer.php'); ?>

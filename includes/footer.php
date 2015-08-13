@@ -5,7 +5,7 @@
         <script src="<?= $url; ?>/js/plugins.js"></script>
         <script src="<?= $url; ?>/js/main.js"></script>
 		<?php if ( $class == 'save-the-date' ) { ?>
-			<script src="<?= $url; ?>/js/save.js"></script>
+			<script src="<?= $url; ?>/js/get-address.js"></script>
 		<?php } ?>
 
     </body>
