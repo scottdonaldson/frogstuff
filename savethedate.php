@@ -16,33 +16,32 @@ include('includes/header.php'); ?>
 	}
 	</script>
 
-	<div class="content">
-		<div class="halfcolumn clearfix">
-			<div class="toptext">
-				<h2>Dinner, Dancing & Vows of Everlasting Commitment</h2>
-				<p>Saturday, May 21, 2016 <br>
-					at five in the evening</p>
-				<p>Long View Gallery<br>
-					1234 9th St NW <br>
-		 			Washington, DC </p>
+	<div class="save-the-date-content">
+		<img src="<?= $url; ?>/img/savethedate.png">
 
-		 		<h2>Send Off Buffet Brunch </h2>
-				<p> Morning After Reception <br>
-					Morrison Clark Hotel <br>
-					9am - 11am <br>
-					NO RSVP REQUIRED -- Just pop on in </p>
-			</div>
-		</div>
-		<div id="greetings-container" class="halfcolumn clearfix" style="display: none;">
+		<div id="greetings-container" class="" style="display: none;">
 			<div id="greetings"></div>
 			<form>
 				<textarea id="address"></textarea>
-				<input type="submit">
+				<input type="submit" id="submit">
 
 				<input type="hidden" id="column">
 				<input type="hidden" id="row">
 			</form>
+
+			<div id="thanks" style="display: none;">
+				<p>Thanks! Look for an invite in the next few months. We'll have more information on the website then.</p>
+				<h2>Anxious to book your hotel now?</h2>
+				<p>We've reserved a block of rooms at the <a href="http://www.morrisonclark.com">Morrison Clark Hotel</a>. It's a 6 minute walk to the venue and a 7 minute walk to the Metro. Just mention you’re booking as part of Lisa &amp; Scott’s wedding block.</p>
+			</div>
+
+			<div id="no-address" style="display: none;">
+				<p>Psst! Put your address in the box above.</p>
+			</div>
 		</div>
+
 	</div>
+
+
 
 <?php include('includes/footer.php'); ?>

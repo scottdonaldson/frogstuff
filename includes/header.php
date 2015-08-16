@@ -58,11 +58,7 @@ aaadP"'             `""Yb,       .-'  _.'- '  _.-'     (
                           88888888                         88888888'
                                                            """"""""
 -->
-<!--[if lt IE 7]>      <html class="no-js oldie lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js oldie lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js oldie lt-ie9"> <![endif]-->
-<!--[if IE 9]>         <html class="no-js oldie"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html class="no-js <?php if ( $class === 'save-the-date' ) { echo $class; } ?>">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -82,5 +78,4 @@ aaadP"'             `""Yb,       .-'  _.'- '  _.-'     (
 
         <header></header>
 
-
-        <main>
+        <main class="h100">

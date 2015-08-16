@@ -114,8 +114,15 @@ a:hover {
 }
 ::-moz-selection {
   background: $peagreen;
-
 }
+
+@mixin vcenter {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.vcenter { @include vcenter; }
+.h100 { height: 100%; }
 
 //-----------Content Grid
 
@@ -267,26 +274,52 @@ $halfcolumnpadding: 6%;
 
 // ---------- Save the Date
 
-.save-the-date {
-    background-image: url(../img/Lisa&Scott-56.jpg);
+body.save-the-date {
+    background-attachment: fixed;
+    background-image: url(../img/savethedate-bg.jpg);
+    background-repeat: no-repeat;
     background-size: cover;
-    background-position: center 100%;
-    min-height: 100vh;
+    background-position: 100% 100%;
+}
+
+$transparent_black: rgba(0, 0, 0, 0.3);
+$stop: 70%;
+
+.save-the-date-content {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+91,ffffff+99 */
+    background: $transparent_black; /* Old browsers */
+    background: -moz-linear-gradient(left,  $transparent_black 0%, $transparent_black $stop, transparent 99%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,$transparent_black), color-stop($stop,$transparent_black), color-stop(99%,transparent)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  $transparent_black 0%,$transparent_black $stop,transparent 99%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  $transparent_black 0%,$transparent_black $stop,transparent 99%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  $transparent_black 0%,$transparent_black $stop,transparent 99%); /* IE10+ */
+    background: linear-gradient(to right,  $transparent_black 0%,$transparent_black $stop,transparent 99%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$transparent_black', endColorstr='transparent',GradientType=1 ); /* IE6-9 */
+
+    float: left;
+    padding: 0 8vw 4vw;
+    width: 61.42%;
+
+    * { color: #fff; }
+
+    img {
+        display: block;
+        left: -5%;
+        width: 110%;
+    }
 }
 
 form {
     input, textarea {
-        background: rgba(255, 255, 255, 0.5);
+        background: #fff;
         border: 0;
-        color: #666;
+        color: #666 !important;
         display: block;
-        clear: both;
-        float: right;
         font-family: 'sofia';
         margin-bottom: 20px;
         padding: 0.5em;
         transition: 0.25s background;
-        width: 80%;
+        width: 100%;
 
         &:focus {
             background: rgba(255, 255, 255, 0.9);
@@ -297,15 +330,30 @@ form {
 
 #greetings {
     color: #fff;
-    float: right;
     font-family: 'sofia';
     font-size: 20px;
     margin-bottom: 20px;
-    width: 80%;
+
+    // style for salutation "Hi {names}!" (in JS)
+    .names {
+
+    }
+
+    // style for "Please let us know..." (in JS)
+    .please {
+
+    }
 }
 
 #address {
     height: 120px;
+}
+
+#submit {
+    border-radius: 4px;
+    margin: 0 auto 40px;
+    text-transform: uppercase;
+    width: 40%;
 }
 
 //-----------Responsive

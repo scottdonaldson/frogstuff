@@ -15,7 +15,10 @@
         greetings = $('#greetings'),
         form = $('form'),
         rowInput = $('#row'),
-        addressInput = $('#address');
+        addressInput = $('#address'),
+        submitButton = $('#submit'),
+        noAddress = $('#no-address'),
+        thanks = $('#thanks');
 
     function parseCell(cell) {
 
@@ -109,14 +112,22 @@
             }
         });
 
-        greeting += showNames + '!';
+        greeting += '<span class="names">' + showNames + '!</span>';
         greeting += '<br>';
-        greeting += '<small>Please let us know where we should send your RSVP:</small>';
+        greeting += '<span class="please">Please let us know where we should send your invite:</span>';
 
         greetings.html(greeting);
         greetingsContainer.fadeIn(1000);
+    }
 
-        addressInput.focus();
+    function showSubmit() {
+        console.log('showing submit');
+        /* var lines = addressInput.val().split('\n')
+        if ( lines.length > 1 && lines[1] !== '' ) {
+            submitButton.fadeIn();
+        } else {
+            submitButton.fadeOut();
+        } */
     }
 
     function postData(data) {
@@ -125,12 +136,22 @@
             type: 'POST',
             data: data,
             success: function(data) {
-                console.log(data);
+                form.add(greetings).fadeOut(function() {
+                    thanks.fadeIn();
+                });
             },
             error: function(err) {
                 console.log(err);
             }
         });
+    }
+
+    function showNoAddressError() {
+        noAddress.fadeIn();
+    }
+
+    function hideNoAddressError() {
+        noAddress.fadeOut();
     }
 
     function submit(e) {
@@ -150,14 +171,15 @@
         data.addressCol = addressCol;
         data.address = addressInput.val();
 
-        console.log(data);
-
         if ( data.row && data.address ) {
             postData(data);
+        } else {
+            showNoAddressError();
         }
     }
 
     retrieveData(findMatch);
+    addressInput.on('keyup', hideNoAddressError);
     form.on('submit', submit);
 
 })(jQuery);
