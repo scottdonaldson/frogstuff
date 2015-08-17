@@ -9,6 +9,7 @@
 $grey: #666;
 $peagreen: #e0ddae;
 $greenbean: #a5ad97;
+$error: #de6d77;
 
 //-----------FONTS
 
@@ -280,20 +281,16 @@ body.save-the-date {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 100% 100%;
-}
 
-img.has-key, img.no-key {
-    margin-left: -50px;
-}
-
-img.no-key {
-    transform: translateY(35%);
+    @media screen and (max-aspect-ratio: 7/10) {
+        background-position: 90% 100%;
+    }
 }
 
 $transparent_black: rgba(0, 0, 0, 0.3);
 $stop: 70%;
 
-.save-the-date-content {
+@mixin gradient {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+91,ffffff+99 */
     background: $transparent_black; /* Old browsers */
     background: -moz-linear-gradient(left,  $transparent_black 0%, $transparent_black $stop, transparent 99%); /* FF3.6+ */
@@ -303,17 +300,27 @@ $stop: 70%;
     background: -ms-linear-gradient(left,  $transparent_black 0%,$transparent_black $stop,transparent 99%); /* IE10+ */
     background: linear-gradient(to right,  $transparent_black 0%,$transparent_black $stop,transparent 99%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$transparent_black', endColorstr='transparent',GradientType=1 ); /* IE6-9 */
+}
 
+.save-the-date-content {
+    @include gradient;
     float: left;
     padding: 0 8vw 4vw;
     width: 61.42%;
+    height: 100vh;
+
+    @media screen and (max-width: 720px) {
+        width: 100%;
+    }
 
     * { color: #fff; }
+    a { color: #fff; }
 
     // HIDE BOTH IMAGES
     img.has-key,
     img.no-key {
         display: none;
+        left: -50px;
     }
 
     // if there is a key, show the has-key image
@@ -324,6 +331,41 @@ $stop: 70%;
     // if there's no key, show the no-key image
     .no-key & img.no-key {
         display: block;
+        max-height: 80vh;
+        top: 45vh;
+        left: 50%;
+        max-width: 64vw;
+        transform: translateY(-50%) translateX(-50%);
+    }
+
+    .no-key & {
+        @media screen and (max-width: 840px) {
+            background: transparent;
+            width: 100%;
+
+            &:before {
+                display: block;
+                content: "";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 61.42%;
+                @include gradient;
+            }
+
+            img.no-key {
+                max-height: 60vh;
+                max-width: 100%;
+                top: 30vh;
+
+                @media screen and (max-width: 500px) {
+                    max-width: 106vw;
+                    margin-left: -3vw;
+                }
+            }
+        }
     }
 }
 
@@ -331,7 +373,7 @@ form {
     input, textarea {
 
         border: 0;
-        color: #666 !important;
+        color: #666;
         display: block;
         font-family: 'sofia';
         margin-bottom: 20px;
@@ -344,6 +386,8 @@ form {
             outline: 0;
         }
     }
+
+    textarea { color: #666 !important; }
 }
 
 #greetings {
@@ -367,14 +411,45 @@ form {
 #address {
     height: 120px;
     border-radius: 2px;
+
+    &.error {
+        border: 2px solid $error;
+    }
+}
+
+#no-address {
+    float: left;
+    height: 41px;
+    padding-right: 1em;
+    width: 60%;
+
+    p { margin: 0; @include vcenter; }
 }
 
 #submit {
+    background: transparent;
+    border: 2px solid #fff;
     border-radius: 2px;
+    color: #fff;
     margin: 0 auto 40px;
     text-transform: uppercase;
     width: 40%;
     float: right;
+
+    transition: 0.2s;
+
+    &:hover, &:active, &:focus {
+        background: #fff;
+        color: #666;
+    }
+}
+
+.thanks-header {
+    margin-bottom: 1.5em;
+}
+
+#save-the-date-copyright {
+    opacity: 0.5;
 }
 
 //-----------Responsive

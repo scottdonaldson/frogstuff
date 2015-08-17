@@ -90,6 +90,7 @@
                     return showGreeting(item);
                 }
             }
+
             i++;
         }
     }
@@ -99,7 +100,7 @@
         var names = item.name,
             num = names.length,
             showNames = '',
-            greeting = 'Hi ';
+            greeting = '';
 
         names.forEach(function(name, i) {
             name = name.split(' ')[0];
@@ -114,22 +115,18 @@
             }
         });
 
-        greeting += '<span class="names">' + showNames + '!</span>';
+        greeting += '<span class="names">Hi ' + showNames + '!</span>';
         greeting += '<br>';
-        greeting += '<span class="please">Please let us know where we should send your invite:</span>';
+
+        if ( item.address ) {
+            greeting += '<span class="please">You already sent us your address! But if you want to edit it, you can do&nbsp;that&nbsp;here:</span>';
+            addressInput.val(item.address);
+        } else {
+            greeting += '<span class="please">Please let us know where we should send your invite:</span>';
+        }
 
         greetings.html(greeting);
         greetingsContainer.fadeIn(1000);
-    }
-
-    function showSubmit() {
-        console.log('showing submit');
-        /* var lines = addressInput.val().split('\n')
-        if ( lines.length > 1 && lines[1] !== '' ) {
-            submitButton.fadeIn();
-        } else {
-            submitButton.fadeOut();
-        } */
     }
 
     function postData(data) {
@@ -149,10 +146,12 @@
     }
 
     function showNoAddressError() {
+        addressInput.addClass('error');
         noAddress.fadeIn();
     }
 
     function hideNoAddressError() {
+        addressInput.removeClass('error');
         noAddress.fadeOut();
     }
 

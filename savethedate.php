@@ -18,28 +18,34 @@ include('includes/header.php'); ?>
 
 	<div class="save-the-date-content">
 
-		<img class="has-key" src="<?= $url; ?>/img/savethedate.png">
+		<div class="gradient-bg"></div>
+
+		<img class="has-key" src="http://placehold.it/100x100">
 		<img class="no-key" src="<?= $url; ?>/img/savethedate.png">
 
 		<div id="greetings-container" class="" style="display: none;">
 			<div id="greetings"></div>
 			<form>
 				<textarea id="address"></textarea>
-				<input type="submit" id="submit">
+				<div id="no-address" style="display: none;">
+					<p>Psst! Put your address in the box above.</p>
+				</div>
+				<input type="submit" id="submit" value="Ok, let's go!">
 
 				<input type="hidden" id="column">
 				<input type="hidden" id="row">
 			</form>
 
 			<div id="thanks" style="display: none;">
-				<p>Thanks! Look for an invite in the next few months. We'll have more information on the website then.</p>
+				<h2 class="thanks-header">Thanks! Look for an invite in the next few months. We'll have more information on the website then.</h2>
 				<h2>Anxious to book your hotel now?</h2>
 				<p>We've reserved a block of rooms at the <a href="http://www.morrisonclark.com">Morrison Clark Hotel</a>. It's a 6 minute walk to the venue and a 7 minute walk to the Metro. Just mention you’re booking as part of Lisa &amp; Scott’s wedding block.</p>
 			</div>
+		</div>
 
-			<div id="no-address" style="display: none;">
-				<p>Psst! Put your address in the box above.</p>
-			</div>
+		<div id="save-the-date-copyright" class="twocolumn footer">
+			<h5>&copy; Lisa &amp; Scott 2006-divorce </h5>
+			<h5>All photos by <a href="http://uniquelapin.com" target="_blank">Unique Lapin</a>.</h5>
 		</div>
 
 	</div>
