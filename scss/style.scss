@@ -282,6 +282,14 @@ body.save-the-date {
     background-position: 100% 100%;
 }
 
+img.has-key, img.no-key {
+    margin-left: -50px;
+}
+
+img.no-key {
+    transform: translateY(35%);
+}
+
 $transparent_black: rgba(0, 0, 0, 0.3);
 $stop: 70%;
 
@@ -321,7 +329,7 @@ $stop: 70%;
 
 form {
     input, textarea {
-        background: #fff;
+
         border: 0;
         color: #666 !important;
         display: block;
@@ -346,24 +354,27 @@ form {
 
     // style for salutation "Hi {names}!" (in JS)
     .names {
-
+        font-size: 28px;
     }
 
     // style for "Please let us know..." (in JS)
     .please {
-
+        font-size: 18px;
     }
 }
 
+
 #address {
     height: 120px;
+    border-radius: 2px;
 }
 
 #submit {
-    border-radius: 4px;
+    border-radius: 2px;
     margin: 0 auto 40px;
     text-transform: uppercase;
     width: 40%;
+    float: right;
 }
 
 //-----------Responsive
