@@ -17,7 +17,9 @@ include('includes/header.php'); ?>
 	</script>
 
 	<div class="save-the-date-content">
-		<img src="<?= $url; ?>/img/savethedate.png">
+
+		<img class="has-key" src="<?= $url; ?>/img/savethedate.png">
+		<img class="no-key" src="<?= $url; ?>/img/savethedate.png">
 
 		<div id="greetings-container" class="" style="display: none;">
 			<div id="greetings"></div>

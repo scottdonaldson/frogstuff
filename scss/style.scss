@@ -302,10 +302,20 @@ $stop: 70%;
 
     * { color: #fff; }
 
-    img {
+    // HIDE BOTH IMAGES
+    img.has-key,
+    img.no-key {
+        display: none;
+    }
+
+    // if there is a key, show the has-key image
+    .has-key & img.has-key {
         display: block;
-        left: -5%;
-        width: 110%;
+    }
+
+    // if there's no key, show the no-key image
+    .no-key & img.no-key {
+        display: block;
     }
 }
 

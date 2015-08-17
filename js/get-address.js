@@ -3,6 +3,8 @@
     // should be a URL param coming in from MailChimp
     var key = gup('key');
 
+    $('body').addClass(key ? 'has-key' : 'no-key');
+
     // this will hold the parsed data
     var sheet = [];
 
