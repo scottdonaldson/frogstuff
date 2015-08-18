@@ -179,6 +179,9 @@ $halfcolumnpadding: 6%;
 	float: right;
 }
 
+.lazy-load {
+    opacity: 0;
+}
 
 //----------the Good Stuff
 
@@ -257,7 +260,6 @@ $halfcolumnpadding: 6%;
 }
 
 .footer {
-
 	position: absolute;
 	bottom: 60px;
 
@@ -276,11 +278,19 @@ $halfcolumnpadding: 6%;
 // ---------- Save the Date
 
 body.save-the-date {
-    background-attachment: fixed;
-    background-image: url(../img/savethedate-bg.jpg);
+    background: $grey;
+}
+
+.save-the-date-bg {
+    // background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 100% 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
     @media screen and (max-aspect-ratio: 7/10) {
         background-position: 90% 100%;

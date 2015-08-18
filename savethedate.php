@@ -20,8 +20,8 @@ include('includes/header.php'); ?>
 
 		<div class="gradient-bg"></div>
 
-		<img class="has-key" src="<?= $url; ?>/img/address-header.png">
-		<img class="no-key" src="<?= $url; ?>/img/savethedate.png">
+		<img class="has-key lazy-load" src="<?= $url; ?>/img/address-header.png">
+		<img class="no-key lazy-load" src="<?= $url; ?>/img/savethedate.png">
 
 		<div id="greetings-container" class="" style="display: none;">
 			<div id="greetings"></div>
