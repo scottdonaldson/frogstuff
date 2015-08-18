@@ -11,18 +11,17 @@ S3 = boto.connect_s3()
 bucket = S3.get_bucket(bucket_name)
 
 html = [
-	'index.php',
-	'404.php'
+	'savethedate.php'
 ]
 
 for slug in html:
 
-	r = requests.get( url + slug + '/?deploy=true&deploy-url=http://' + bucket_name)
+	r = requests.get( url + slug + '/?deploy=true&deploy-url=http://' + bucket_name + '/dev')
 
 	print 'deploying ' + slug
 
 	k = Key(bucket)
-	k.key = slug.replace('.php', '.html')
+	k.key = 'dev/index.html'
 	k.content_type = 'text/html'
 	k.set_contents_from_string(r.content)
 
@@ -37,12 +36,15 @@ for slug in css:
 	print 'deploying ' + slug
 
 	k = Key(bucket)
-	k.key = slug
+	k.key = 'dev/' + slug
 	k.content_type = 'text/css'
 	k.set_contents_from_string(r.content)
 
 js = [
-	'js/main.js'
+	'js/main.js',
+	'js/get-address.js',
+	'js/vendor/jquery-1.10.2.min.js',
+	'js/vendor/modernizr-2.6.2.min.js'
 ]
 
 for slug in js:
@@ -52,6 +54,6 @@ for slug in js:
 	print 'deploying ' + slug
 
 	k = Key(bucket)
-	k.key = slug
+	k.key = 'dev/' + slug
 	k.content_type = 'application/x-javascript'
 	k.set_contents_from_string(r.content)
