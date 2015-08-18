@@ -287,8 +287,8 @@ body.save-the-date {
     }
 }
 
-$transparent_black: rgba(0, 0, 0, 0.3);
-$stop: 70%;
+$transparent_black: rgba(0, 0, 0, 0.4);
+$stop: 65%;
 
 @mixin gradient {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+91,ffffff+99 */
@@ -326,7 +326,18 @@ $stop: 70%;
     // if there is a key, show the has-key image
     .has-key & img.has-key {
         display: block;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 40px 0  20px 0;
+        max-width: 50vw;
+
+
+        @media screen and (max-width: 720px) {
+            max-width: 80vw;
+        }
     }
+
+
 
     // if there's no key, show the no-key image
     .no-key & img.no-key {

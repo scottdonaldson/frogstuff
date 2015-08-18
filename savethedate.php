@@ -20,7 +20,7 @@ include('includes/header.php'); ?>
 
 		<div class="gradient-bg"></div>
 
-		<img class="has-key" src="http://placehold.it/100x100">
+		<img class="has-key" src="<?= $url; ?>/img/address-header.png">
 		<img class="no-key" src="<?= $url; ?>/img/savethedate.png">
 
 		<div id="greetings-container" class="" style="display: none;">
