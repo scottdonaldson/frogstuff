@@ -23,7 +23,7 @@ include('includes/header.php'); ?>
 		<img class="has-key lazy-load" src="<?= $url; ?>/img/address-header.png">
 		<img class="no-key lazy-load" src="<?= $url; ?>/img/savethedate.png">
 
-		<div id="greetings-container" class="" style="display: none;">
+		<div id="greetings-container">
 			<div id="greetings"></div>
 			<form>
 				<textarea id="address"></textarea>
@@ -44,7 +44,6 @@ include('includes/header.php'); ?>
 		</div>
 
 		<div id="save-the-date-copyright" class="twocolumn footer">
-			<h5>&copy; Lisa &amp; Scott 2006-divorce </h5>
 			<h5>All photos by <a href="http://uniquelapin.com" target="_blank">Unique Lapin</a>.</h5>
 		</div>
 

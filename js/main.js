@@ -26,7 +26,7 @@ function setBG(el) {
 	if ( el.getAttribute('data-bg') ) {
 		el.style.backgroundImage = 'url(' + this.src + ')';
 	}
-	fade(el, 100, 0);
+	fade(el, 1, 0);
 }
 
 function lazyload() {

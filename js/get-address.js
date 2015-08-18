@@ -19,6 +19,7 @@
         rowInput = $('#row'),
         addressInput = $('#address'),
         submitButton = $('#submit'),
+        originalSubmitText = submitButton.val(),
         noAddress = $('#no-address'),
         thanks = $('#thanks');
 
@@ -126,27 +127,31 @@
         }
 
         greetings.html(greeting);
-        greetingsContainer.fadeIn(1000);
+        greetingsContainer.animate({
+            opacity: 1
+        }, 1000);
+    }
+
+    function showThanks() {
+        form.add(greetings).fadeOut(function() {
+            thanks.fadeIn();
+        });
     }
 
     function postData(data) {
         $.ajax({
             url: 'https://script.google.com/macros/s/AKfycbz9nlUbYGAJYwQNsdmuKc7uqNyh5fNEL2qQ1qm67czt2th7RkJu/exec',
             type: 'POST',
+            // async: false,
             data: data,
-            success: function(data) {
-                form.add(greetings).fadeOut(function() {
-                    thanks.fadeIn();
-                });
-            },
-            error: function(err) {
-                console.log(err);
-            }
+            success: showThanks,
+            complete: showThanks
         });
     }
 
     function showNoAddressError() {
         addressInput.addClass('error');
+        submitButton.val(originalSubmitText);
         noAddress.fadeIn();
     }
 
@@ -162,6 +167,8 @@
         var col,
             addressCol,
             data = {};
+
+        submitButton.val('...');
 
         // get column of ADDRESS
         for ( col in columns ) {
@@ -181,6 +188,11 @@
 
     retrieveData(findMatch);
     addressInput.on('keyup', hideNoAddressError);
+    addressInput.on('focus', function() {
+        $('html, body').animate({
+            scrollTop: addressInput.offset().top - 20
+        })
+    });
     form.on('submit', submit);
 
 })(jQuery);

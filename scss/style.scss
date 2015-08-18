@@ -312,14 +312,23 @@ $stop: 65%;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$transparent_black', endColorstr='transparent',GradientType=1 ); /* IE6-9 */
 }
 
-.save-the-date-content {
+.gradient-bg {
     @include gradient;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 61.42%;
+}
+
+.save-the-date-content {
     float: left;
     padding: 0 8vw 4vw;
+    min-height: 100vh;
     width: 61.42%;
-    height: 100vh;
 
     @media screen and (max-width: 720px) {
+        padding-top: 2em;
         width: 100%;
     }
 
@@ -341,21 +350,18 @@ $stop: 65%;
         padding: 20px 0  50px 0;
         max-width: 50vw;
 
-
         @media screen and (max-width: 720px) {
-            max-width: 80vw;
+            display: none;
         }
     }
-
-
 
     // if there's no key, show the no-key image
     .no-key & img.no-key {
         display: block;
-        max-height: 80vh;
+        max-height: 75vh;
         top: 45vh;
         left: 50%;
-        max-width: 64vw;
+        max-width: 52vw;
         transform: translateY(-50%) translateX(-50%);
     }
 
@@ -382,8 +388,7 @@ $stop: 65%;
                 top: 30vh;
 
                 @media screen and (max-width: 500px) {
-                    max-width: 106vw;
-                    margin-left: -3vw;
+                    max-width: 110%;
                 }
             }
         }
@@ -432,6 +437,7 @@ form {
 #address {
     height: 120px;
     border-radius: 2px;
+    z-index: 9999;
 
     &.error {
         border: 2px solid $error;
@@ -445,6 +451,17 @@ form {
     width: 60%;
 
     p { margin: 0; @include vcenter; }
+
+    @media screen and (max-width: 500px) {
+        height: auto;
+        padding-bottom: 4em;
+        width: calc(100% - 170px);
+
+        p {
+            top: 0;
+            transform: translateY(0);
+        }
+    }
 }
 
 #submit {
@@ -456,21 +473,34 @@ form {
     text-transform: uppercase;
     width: 40%;
     float: right;
-
     transition: 0.2s;
 
     &:hover, &:active, &:focus {
         background: #fff;
         color: #666;
     }
+
+    @media screen and (max-width: 500px) {
+        min-width: 160px;
+    }
+}
+
+#thanks {
+    padding-bottom: 2em;
 }
 
 .thanks-header {
     margin-bottom: 1.5em;
 }
 
+#greetings-container {
+    opacity: 0;
+}
+
 #save-the-date-copyright {
     opacity: 0.5;
+    position: absolute;
+    bottom: 2em;
 }
 
 //-----------Responsive

@@ -43,7 +43,7 @@ for slug in css:
 js = [
 	'js/main.js',
 	'js/get-address.js',
-	'js/vendor/jquery-1.10.2.min.js',
+	'js/vendor/jquery-2.1.3.min.js',
 	'js/vendor/modernizr-2.6.2.min.js'
 ]
 
