@@ -74,7 +74,15 @@ aaadP"'             `""Yb,       .-'  _.'- '  _.-'     (
         <script src="<?= $url; ?>/js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
 
+    <?php
+    $bg = $class === 'save-the-date' ? $url . '/img/savethedate-bg.jpg' : ''
+    ?>
+
     <body class="<?php echo $class; ?>">
+
+        <?php if ( $class === 'save-the-date' ) { ?>
+            <div class="lazy-load save-the-date-bg" data-bg="<?php echo $bg; ?>"></div>
+        <?php } ?>
 
         <header></header>
 
