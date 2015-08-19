@@ -94,7 +94,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 	line-height: 150%;
 }
 
-html{
+html {
 	overflow-x:hidden;
 }
 
@@ -389,6 +389,8 @@ $stop: 65%;
     min-height: 100vh;
     width: 61.42%;
 
+    .no-js & { display: none !important; }
+
     @media screen and (max-width: 720px) {
         padding-top: 2em;
         width: 100%;
@@ -565,6 +567,26 @@ form {
     opacity: 0.5;
     position: absolute;
     bottom: 2em;
+}
+
+.save-the-date-fallback {
+    display: none;
+    padding: 4vw 8vw;
+    min-height: 100vh;
+    width: 61.42%;
+
+    * { color: #fff; }
+    a { color: #fff; }
+
+    .no-js & {
+        display: block;
+    }
+
+    img {
+        display: block;
+        margin: 0 auto;
+        max-width: 500px;
+    }
 }
 
 //-----------Responsive

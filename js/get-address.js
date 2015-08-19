@@ -75,13 +75,48 @@
     }
 
     function retrieveData(cb) {
+        var timeout = 15000,
+            start = 0,
+            errorShown = false;
+
+        // if no response after 15 seconds, show loading error
+        (function increment() {
+            start++;
+            if ( start >= timeout && !errorShown ) {
+                return showLoadingError();
+            } else if ( !errorShown ) {
+                setTimeout(increment, 1000);
+            }
+        })();
+
+        function showLoadingError() {
+
+            errorShown = true;
+
+            var errorMessage = "<p>Oops! There was an error loading this page. Try refreshing, but if that doesn't work, you can always email us your address at <a href='mailto:scott.p.donaldson@gmail.com'>scott.p.donaldson@gmail.com</a>.</p>";
+
+            hub.trigger('loaded');
+
+            greetings.html(errorMessage);
+            greetingsContainer.find('form').hide();
+            greetingsContainer.animate({
+                opacity: 1
+            }, 1000);
+        }
+
+        function loadingSuccess(data) {
+            // no longer need to show loading anim
+            hub.trigger('loaded');
+            parseResponse(data, cb);
+        }
+
         $.ajax({
             url: buildURL(),
             success: function(data) {
-                // no longer need to show loading anim
-                hub.trigger('loaded');
-                parseResponse(data, cb);
-            }
+                if ( gup('error') ) return showLoadingError();
+                loadingSuccess(data);
+            },
+            error: showLoadingError
         });
     }
 

@@ -51,4 +51,14 @@ include('includes/header.php'); ?>
 
 	</div>
 
+	<div class="save-the-date-fallback">
+		<div class="gradient-bg"></div>
+		<img src="<?= $url; ?>/img/savethedate.png">
+		<p>This website uses JavaScript so that you can send us your address. But it looks like you don't have JavaScript enabled.</p>
+		<p>That's OK!</p>
+		<p>You can still send us your address over email at <a href="mailto:scott.p.donaldson@gmail.com">scott.p.donaldson@gmail.com</a>.</p>
+		<br>
+		<h5>All photos by <a href="http://uniquelapin.com" target="_blank">Unique Lapin</a>.</h5>
+	</div>
+
 <?php include('includes/footer.php'); ?>
