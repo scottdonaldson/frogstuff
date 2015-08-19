@@ -54,7 +54,21 @@
         }
     }
 
+    (function doneLoading() {
+        var saveGraphic;
+        if ( !key ) {
+            saveGraphic = $('img.no-key.lazy-load');
+            if ( saveGraphic[0].complete ) {
+                return hub.trigger('loaded');
+            }
+            saveGraphic.load(function() {
+                hub.trigger('loaded');
+            });
+        }
+    })();
+
     function parseResponse(data, cb) {
+
         var cells = data.feed.entry;
         cells.forEach(parseCell);
         cb();
@@ -64,6 +78,8 @@
         $.ajax({
             url: buildURL(),
             success: function(data) {
+                // no longer need to show loading anim
+                hub.trigger('loaded');
                 parseResponse(data, cb);
             }
         });
@@ -186,13 +202,14 @@
         }
     }
 
-    retrieveData(findMatch);
+    if ( !!key ) retrieveData(findMatch);
     addressInput.on('keyup', hideNoAddressError);
     addressInput.on('focus', function() {
         $('html, body').animate({
             scrollTop: addressInput.offset().top - 20
         })
     });
+
     form.on('submit', submit);
 
 })(jQuery);

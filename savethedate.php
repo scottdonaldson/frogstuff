@@ -2,6 +2,8 @@
 $class = 'save-the-date';
 include('includes/header.php'); ?>
 
+<div id="loading"></div>
+
 	<script>
 	function buildURL() {
 		var key1 = '1aS5R3rKitHu2WBDJvj66',
@@ -48,7 +50,5 @@ include('includes/header.php'); ?>
 		</div>
 
 	</div>
-
-
 
 <?php include('includes/footer.php'); ?>
