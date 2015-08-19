@@ -310,6 +310,16 @@ $stop: 65%;
     background: -ms-linear-gradient(left,  $transparent_black 0%,$transparent_black $stop,transparent 99%); /* IE10+ */
     background: linear-gradient(to right,  $transparent_black 0%,$transparent_black $stop,transparent 99%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$transparent_black', endColorstr='transparent',GradientType=1 ); /* IE6-9 */
+
+    @media screen and (max-width: 840px) {
+        background: -moz-linear-gradient(top, $transparent_black 0%, $transparent_black $stop, transparent 99%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$transparent_black), color-stop($stop,$transparent_black), color-stop(99%,transparent)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, $transparent_black 0%,$transparent_black $stop,transparent 99%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, $transparent_black 0%,$transparent_black $stop,transparent 99%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, $transparent_black 0%,$transparent_black $stop,transparent 99%); /* IE10+ */
+        background: linear-gradient(to bottom,  $transparent_black 0%,$transparent_black $stop,transparent 99%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$transparent_black', endColorstr='transparent',GradientType=1 ); /* IE6-9 */
+    }
 }
 
 .gradient-bg {
@@ -319,6 +329,11 @@ $stop: 65%;
     left: 0;
     bottom: 0;
     width: 61.42%;
+
+    @media screen and (max-width: 840px) {
+        height: 60vh;
+        width: 100%;
+    }
 }
 
 .save-the-date-content {

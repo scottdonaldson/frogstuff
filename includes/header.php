@@ -69,7 +69,7 @@ aaadP"'             `""Yb,       .-'  _.'- '  _.-'     (
 
         <link rel="shortcut icon" href="<?= $url; ?>/favicon.ico">
 
-        <link rel="stylesheet" href="<?= $url; ?>/css/style.css">
+        <link rel="stylesheet" href="<?= $url; ?>/css/style.css?v=<?php echo date('YmdHis'); ?>">
 
         <script src="<?= $url; ?>/js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
