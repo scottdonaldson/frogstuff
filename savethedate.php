@@ -41,7 +41,7 @@ include('includes/header.php'); ?>
 			<div id="thanks" style="display: none;">
 				<h2 class="thanks-header">Thanks! Look for an invite in the next few months. We'll have more information on the website then.</h2>
 				<h2>Anxious to book your hotel now?</h2>
-				<p>We've reserved a block of rooms at the <a href="http://www.morrisonclark.com">Morrison Clark Hotel</a>. It's a 6 minute walk to the venue and a 7 minute walk to the Metro. Just mention you’re booking as part of Lisa &amp; Scott’s wedding block.</p>
+				<p>We've reserved a block of rooms at the <a href="http://www.morrisonclark.com">Morrison Clark Inn</a>. It's a 6 minute walk to the venue and a 7 minute walk to the Metro. Just mention you’re booking as part of Lisa &amp; Scott’s wedding block.</p>
 			</div>
 		</div>
 

@@ -171,7 +171,7 @@
         greeting += '<br>';
 
         if ( item.address ) {
-            greeting += '<span class="please">You already sent us your address! But if you want to edit it, you can do&nbsp;that&nbsp;here:</span>';
+            greeting += '<span class="please">You (or someone in your party) already sent us your address! But if you want to edit it, you can do&nbsp;that&nbsp;here:</span>';
             addressInput.val(item.address);
         } else {
             greeting += '<span class="please">Please let us know where we should send your invite:</span>';
