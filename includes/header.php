@@ -67,8 +67,6 @@ aaadP"'             `""Yb,       .-'  _.'- '  _.-'     (
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="shortcut icon" href="<?= $url; ?>/favicon.ico">
-
         <link rel="stylesheet" href="<?= $url; ?>/css/style.css?v=<?php echo date('YmdHis'); ?>">
 
         <script src="<?= $url; ?>/js/vendor/modernizr-2.6.2.min.js"></script>
