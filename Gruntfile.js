@@ -3,6 +3,14 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        browserify: {
+            dist: {
+                files: {
+                    'js/output/rsvp.js': ['js/rsvp.js']
+                }
+            }
+        },
+
         sass: {
             dist: {
                 options: {
@@ -34,17 +42,25 @@ module.exports = function(grunt) {
                 options: {
                     spawn: false
                 }
+            },
+            js: {
+                files: ['js/**/*.js'],
+                tasks: ['browserify'],
+                options: {
+                    spawn: false
+                }
             }
         }
 
     });
 
     // 3. Where we tell Grunt we plan to use this plug-in.
+    grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
-    grunt.registerTask('default', ['sass', 'postcss', 'watch']);
+    grunt.registerTask('default', ['browserify', 'sass', 'postcss', 'watch']);
 
 };

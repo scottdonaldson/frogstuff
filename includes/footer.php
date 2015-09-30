@@ -6,6 +6,8 @@
         <script src="<?= $url; ?>/js/main.js"></script>
 		<?php if ( $class == 'save-the-date' ) { ?>
 			<script src="<?= $url; ?>/js/get-address.js"></script>
+		<?php } elseif ( $class == 'rsvp' ) { ?>
+			<script src="<?= $url; ?>/js/output/rsvp.js"></script>
 		<?php } ?>
 
     </body>
