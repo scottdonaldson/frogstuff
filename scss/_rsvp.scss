@@ -1,0 +1,62 @@
+body.rsvp {
+    background-image: url(../img/Lisa&Scott-17.jpg);
+    background-size: cover;
+    background-position: 100% 50%;
+    color: #fff;
+    height: 100vh;
+
+    #container {
+        height: 100vh;
+        width: 50%;
+        padding: 5%;
+    }
+
+    #content-container {
+        top: 40%; // not quite vertically centered
+    }
+
+    #copyright {
+        bottom: 5%;
+        left: 5%;
+        position: absolute;
+    }
+
+    .error {
+        background: $error;
+    }
+
+    label {
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    input[type="radio"] {
+        appearance: none;
+        border: 2px solid #fff;
+        cursor: pointer;
+        height: 1em;
+        width: 1em;
+
+        &:active,
+        &:focus {
+            outline: none;
+        }
+    }
+
+    input[type="radio"]:checked:after {
+        color: #fff;
+        content: "✔";
+        display: block;
+        font-size: 1.4em;
+        position: absolute;
+        top: -0.4em;
+    }
+
+    #form-error {
+        left: 0;
+        position: absolute;
+        text-align: center;
+        top: 100%;
+        width: 100%;
+    }
+}

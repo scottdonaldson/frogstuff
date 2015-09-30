@@ -158,6 +158,12 @@ function Handler($form) {
         name = nameInput.val();
         name = util.ignoreNonLetter(name);
 
+        if ( name === '' ) {
+            return {
+                type: 'empty'
+            };
+        }
+
         function success(i) {
             var response = {
                 type: 'success',
@@ -211,7 +217,8 @@ function Handler($form) {
 
             // if still not found, this person is an imposter!
             return {
-                type: 'error'
+                type: 'error',
+                input: nameInput
             };
 
         } else {
@@ -243,12 +250,13 @@ function UI(container) {
 
     var scriptEndpoint = 'https://script.google.com/macros/s/AKfycbztgTxGYXDaq-wzDna_qUgAuGYY8I--7gDpISJXP7ZOOL8dmKQ/exec';
 
+    // error message that's shown in various scenarios
+    var formError = $('#form-error');
+
     // A successful response from the form handler --
     // excepts a name, RSVP (true, false, or undefined),
     // and a party (named or +1)
     function showForm(response) {
-
-        console.log("showing form", response);
 
         var name = response.name,
             party = response.party,
@@ -259,24 +267,30 @@ function UI(container) {
         // set data, passed through from Gsheet response
         data = response;
 
-        function formHasFaded() {
+        function containerHasFaded() {
 
             form.remove();
+            formError.remove();
 
-            var greetings = $('<h2>Hi ' + name.split(' ')[0] + '!</h2>').hide();
-            container.prepend(greetings.fadeIn());
+            setTimeout(function formHasBeenRemoved() {
+                var greetings = $('<h2>Hi ' + name.split(' ')[0] + '!</h2>');
 
-            // from here what happens depends on the status of the RSVP
-            if ( rsvp === true || rsvp === false ) {
-                return ( response.name === response.submitter ) ?
-                    hasRsvped(response) :
-                    hasBeenRsvped(response);
-            }
+                container.append(greetings);
 
-            return hasYetToRsvp(response);
+                container.fadeIn();
+
+                // from here what happens depends on the status of the RSVP
+                if ( rsvp === true || rsvp === false ) {
+                    return ( response.name === response.submitter ) ?
+                        hasRsvped(response) :
+                        hasBeenRsvped(response);
+                }
+
+                return hasYetToRsvp(response);
+            }, 10);
         }
 
-        form.fadeOut(formHasFaded);
+        container.fadeOut(containerHasFaded);
     };
 
         // The visitor has not RSVPed, and has not been RSVPed by anyone
@@ -284,11 +298,14 @@ function UI(container) {
         // applicable, for anyone else in their party.
         function hasYetToRsvp(response) {
 
+            var question = $('<p>Well, we are popping the big question. Will you be attending?</p>');
+            container.append(question);
+
             var attending = $('<input type="radio" name="attending" id="attending-yes" value="1">'),
                 notAttending = $('<input type="radio" name="attending" id="attending-no" value="0">');
             container.append(attending).append(notAttending);
-            attending.after('<label for="attending-yes">Attending</label><br>');
-            notAttending.after('<label for="attending-no">Not Attending</label>');
+            attending.after('<label for="attending-yes">Yes!</label><br>');
+            notAttending.after('<label for="attending-no">No 😢</label>');
 
             // note that this gets called from a jQuery object,
             // so reference this.val() for the radio button's value inside
@@ -300,10 +317,8 @@ function UI(container) {
             // same as above, but party member's name include
             // via jQuery's .data() method
             function updatePartyMemberRsvp() {
-                console.log(this);
                 var member = this.data('member');
                 data.party[member] = Boolean(parseInt(this.val()));
-                console.log('updated', member, data);
             }
 
             attending.change(updateRsvp.bind(attending, response));
@@ -315,6 +330,8 @@ function UI(container) {
 
             memberContainer.prepend('<p>Your party:</p>');
 
+            // if no plus one and no party members, response.party = {}
+            // otherwise, keys are names (or '1' for plus one)
             if ( Object.keys(response.party).length > 0 ) {
                 for ( member in response.party ) {
                     rsvp = response.party[member];
@@ -324,9 +341,13 @@ function UI(container) {
                         memberContainer.html('<p>Would you like to RSVP for a plus one?</p>');
                     // named party members
                     } else {
-                        
-                        var node = $('<p>');
-                        node.text(member + '. rsvp status: ' + rsvp);
+
+                        var node = $('<p>' + member + '</p>');
+                        if ( rsvp === true ) {
+                            node.append(' (Attending)');
+                        } else if ( rsvp === false ) {
+                            node.append(' (Not attending 😢)');
+                        }
                         memberContainer.append(node);
 
                         // if no RSVP yet, ask this member if they want to RSVP
@@ -342,9 +363,9 @@ function UI(container) {
                                 .change(updatePartyMemberRsvp.bind(memberNotAttending));
 
                             memberContainer.append(memberAttending);
-                            memberContainer.append('<label for="attending-' + util.ignoreNonLetter(member) + 'yes">Attending</label><br>');
+                            memberContainer.append('<label for="attending-' + util.ignoreNonLetter(member) + '-yes">Attending</label><br>');
                             memberContainer.append(memberNotAttending);
-                            memberContainer.append('<label for="attending-' + util.ignoreNonLetter(member) + 'no">Not Attending</label>');
+                            memberContainer.append('<label for="attending-' + util.ignoreNonLetter(member) + '-no">Not Attending</label>');
                         }
                     }
                 }
@@ -352,7 +373,7 @@ function UI(container) {
                 container.append(memberContainer);
             }
 
-            var submit = $('<input type="submit">');
+            var submit = $('<input type="submit" id="submit">');
             submit.click(function(e) {
                 e.preventDefault();
                 submitRsvp();
@@ -362,20 +383,60 @@ function UI(container) {
         }
 
         function hasRsvped(response) {
-            container.append('<p>Your RSVP has been received!</p>');
-            container.append('<p>If you need to change your RSVP, please email us as soon as possible to make sure it gets updated: <a href="mailto:scott.p.donaldson@gmail.com">scott.p.donaldson@gmail.com</a></p>');
+            rsvpText(response);
         }
 
         function hasBeenRsvped(response) {
             var submitter = response.submitter.split(' ')[0];
-            container.append('<p>Your RSVP has been submitted by ' + submitter + '.</p>');
-            container.append('<p>If you need to change your RSVP, please email us (or ask ' + submitter + ' to email us) as soon as possible to make sure it gets updated: <a href="mailto:scott.p.donaldson@gmail.com">scott.p.donaldson@gmail.com</a></p>');
+            rsvpText(response, submitter);
+        }
+
+        function rsvpText(response, submitter) {
+            // slightly different texts depending on if the submitter
+            // is the visitor or if someone else submitted the RSVP
+            container.append('<p>Your RSVP ' + (response.rsvp === true ? 'to attend' : 'to sit this one out') + ' has been ' + ( submitter ? 'submitted by ' + submitter : ' received.' ) + '</p>');
+            container.append('<p>If you need to change your RSVP, please email us ' + (submitter ? '(or ask ' + submitter + ' to email us)' : '' ) + ' as soon as possible to make sure it gets updated: <a href="mailto:scott.p.donaldson@gmail.com">scott.p.donaldson@gmail.com</a></p>');
         }
 
     // An error from the form handler.
     // Prompt the user to enter their name again.
     function showError(response) {
-        console.log('showing error', response);
+        var input = response.input;
+        input.addClass('error');
+
+        if ( formError.length === 0 || formError.data('tries') === 0 ) {
+
+            // in case there was one already shown
+            formError.fadeOut();
+
+            formError = $('<div id="form-error">We couldn\'t find your name on the list. Did you spell it exactly as it was on your&nbsp;invitation?</div>').hide();
+            formError.data('tries', 1);
+            container.append(formError.fadeIn());
+
+            input.on('change keyup paste blur', function() {
+                $(this).removeClass('error');
+            });
+
+        } else if ( formError.data('tries') === 1 ) {
+
+            formError.data('tries', 2);
+            formError.fadeOut(function() {
+                formError.html('Hmmm, still no luck. Will you humor us and try one more time? Spelling really counts&nbsp;here...').fadeIn();
+            });
+
+        } else if ( formError.data('tries') === 2 ) {
+
+            formError.fadeOut(function() {
+                formError.html('Sorry, something must be going wrong. This is really embarrassing, but could you email your RSVP to us at <a href="mailto:scott.p.donaldson@gmail.com">scott.p.donaldson@gmail.com</a>?').fadeIn();
+            });
+        }
+    }
+
+    // Error to show when an empty name was passed
+    function showEmpty() {
+        formError = $('<div id="form-error">Er, we need to know your name to help process your RSVP. Do you know how many people will be trying to crash this wedding?</div>').hide();
+        formError.data('tries', 0);
+        container.append(formError.fadeIn());
     }
 
     function submitRsvp() {
@@ -393,7 +454,8 @@ function UI(container) {
 
     return {
         showForm: showForm,
-        showError: showError
+        showError: showError,
+        showEmpty: showEmpty
     };
 }
 
@@ -406,7 +468,7 @@ function buildURL() {
     return 'https://spreadsheets.google.com/feeds/cells/' + key1 + key2 + '/1/public/basic?alt=json';
 }
 
-var container = $('#container'),
+var container = $('#content-container'),
     form = $('#check-name'),
     sheet = false;
 
@@ -417,9 +479,18 @@ var util = require('./util.js'),
 
 // once the data from the sheet is ready, update the handler
 gsheet(buildURL()).ready(function() {
+
+    // hide loading animation
+    hub.trigger('loaded');
+
+    // show form
+    form.fadeIn();
+
+    // update form handler with data
     handler.updateWith(this.byKey());
 });
 
+handler.on('empty', ui.showEmpty);
 handler.on('success', ui.showForm);
 handler.on('error', ui.showError);
 

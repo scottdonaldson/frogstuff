@@ -58,6 +58,12 @@ function Handler($form) {
         name = nameInput.val();
         name = util.ignoreNonLetter(name);
 
+        if ( name === '' ) {
+            return {
+                type: 'empty'
+            };
+        }
+
         function success(i) {
             var response = {
                 type: 'success',
@@ -111,7 +117,8 @@ function Handler($form) {
 
             // if still not found, this person is an imposter!
             return {
-                type: 'error'
+                type: 'error',
+                input: nameInput
             };
 
         } else {
