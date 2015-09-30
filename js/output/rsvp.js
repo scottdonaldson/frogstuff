@@ -234,6 +234,8 @@ function Handler($form) {
 module.exports = Handler;
 
 },{"./rsvp-ui.js":3,"./util.js":5}],3:[function(require,module,exports){
+var util = require('./util.js');
+
 function UI(container) {
 
     // This will be updated upon response and by the user
@@ -295,31 +297,79 @@ function UI(container) {
                 data.submitter = response.name;
             }
 
+            // same as above, but party member's name include
+            // via jQuery's .data() method
+            function updatePartyMemberRsvp() {
+                console.log(this);
+                var member = this.data('member');
+                data.party[member] = Boolean(parseInt(this.val()));
+                console.log('updated', member, data);
+            }
+
             attending.change(updateRsvp.bind(attending, response));
             notAttending.change(updateRsvp.bind(notAttending, response));
 
-            var member, rsvp;
+            var member, rsvp,
+                memberContainer = $('<div class="members">'),
+                party = [];
 
-            if ( response.party ) {
+            memberContainer.prepend('<p>Your party:</p>');
+
+            if ( Object.keys(response.party).length > 0 ) {
                 for ( member in response.party ) {
                     rsvp = response.party[member];
                     // plus ones
                     if ( member === '1' ) {
-                        console.log('you got a plus one');
+                        // clear the existing "Your party:" text
+                        memberContainer.html('<p>Would you like to RSVP for a plus one?</p>');
                     // named party members
                     } else {
-                        console.log('you got named party members');
+                        
+                        var node = $('<p>');
+                        node.text(member + '. rsvp status: ' + rsvp);
+                        memberContainer.append(node);
+
+                        // if no RSVP yet, ask this member if they want to RSVP
+                        if ( rsvp !== true && rsvp !== false ) {
+                            var memberAttending = $('<input type="radio" name="attending-' + util.ignoreNonLetter(member) + '" id="attending-' + util.ignoreNonLetter(member) + '-yes" value="1">'),
+                                memberNotAttending = $('<input type="radio" name="attending-' + util.ignoreNonLetter(member) + '" id="attending-' + util.ignoreNonLetter(member) + '-no" value="0">');
+
+                            memberAttending
+                                .data('member', member)
+                                .change(updatePartyMemberRsvp.bind(memberAttending));
+                            memberNotAttending
+                                .data('member', member)
+                                .change(updatePartyMemberRsvp.bind(memberNotAttending));
+
+                            memberContainer.append(memberAttending);
+                            memberContainer.append('<label for="attending-' + util.ignoreNonLetter(member) + 'yes">Attending</label><br>');
+                            memberContainer.append(memberNotAttending);
+                            memberContainer.append('<label for="attending-' + util.ignoreNonLetter(member) + 'no">Not Attending</label>');
+                        }
                     }
                 }
+
+                container.append(memberContainer);
             }
+
+            var submit = $('<input type="submit">');
+            submit.click(function(e) {
+                e.preventDefault();
+                submitRsvp();
+            });
+            container.append('<br><br>');
+            container.append(submit);
         }
 
         function hasRsvped(response) {
-            console.log('has rsvped');
+            container.append('<p>Your RSVP has been received!</p>');
+            container.append('<p>If you need to change your RSVP, please email us as soon as possible to make sure it gets updated: <a href="mailto:scott.p.donaldson@gmail.com">scott.p.donaldson@gmail.com</a></p>');
         }
 
         function hasBeenRsvped(response) {
-            console.log('has been rsvped');
+            var submitter = response.submitter.split(' ')[0];
+            container.append('<p>Your RSVP has been submitted by ' + submitter + '.</p>');
+            container.append('<p>If you need to change your RSVP, please email us (or ask ' + submitter + ' to email us) as soon as possible to make sure it gets updated: <a href="mailto:scott.p.donaldson@gmail.com">scott.p.donaldson@gmail.com</a></p>');
         }
 
     // An error from the form handler.
@@ -329,6 +379,8 @@ function UI(container) {
     }
 
     function submitRsvp() {
+        // stringify the party to be sent to the server
+        data.party = JSON.stringify(data.party);
         $.ajax({
             url: scriptEndpoint,
             type: 'POST',
@@ -347,7 +399,7 @@ function UI(container) {
 
 module.exports = UI;
 
-},{}],4:[function(require,module,exports){
+},{"./util.js":5}],4:[function(require,module,exports){
 function buildURL() {
     var key1 = '1g6-vCbyXGaaqebez1cUwx',
         key2 = 'gNyLvlEIen_MBjyTVrcUcU';
