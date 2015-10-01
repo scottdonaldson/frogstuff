@@ -176,11 +176,14 @@ function Handler($form) {
                 submitterCol: sheet['SUBMITTER'].col
             };
 
+            response.rsvp = util.affirmToBool(response.rsvp);
+
             // get RSVPs for all members in this party
             (getValue('party', i) || '').split(', ').forEach(function(member) {
                 if ( member ) {
                     var memberIndex = indexFromName(member);
                     response.party[member] = getValue('rsvp', memberIndex);
+                    response.party[member] = util.affirmToBool(response.party[member]);
                 }
             });
 
@@ -298,7 +301,7 @@ function UI(container) {
         // applicable, for anyone else in their party.
         function hasYetToRsvp(response) {
 
-            var question = $('<p>Well, we are popping the big question. Will you be attending?</p>');
+            var question = $('<p>Well, here we are, popping the big question: will you be attending?</p>');
             container.append(question);
 
             var attending = $('<input type="radio" name="attending" id="attending-yes" value="1">'),
@@ -326,7 +329,8 @@ function UI(container) {
 
             var member, rsvp,
                 memberContainer = $('<div class="members">'),
-                party = [];
+                party = [],
+                withoutRsvp = 0;
 
             memberContainer.prepend('<p>Your party:</p>');
 
@@ -334,24 +338,35 @@ function UI(container) {
             // otherwise, keys are names (or '1' for plus one)
             if ( Object.keys(response.party).length > 0 ) {
                 for ( member in response.party ) {
+
                     rsvp = response.party[member];
+
                     // plus ones
                     if ( member === '1' ) {
+
                         // clear the existing "Your party:" text
                         memberContainer.html('<p>Would you like to RSVP for a plus one?</p>');
+
                     // named party members
                     } else {
 
+                        var memberNodeContainer = $('<div>').hide();
+
                         var node = $('<p>' + member + '</p>');
+
                         if ( rsvp === true ) {
                             node.append(' (Attending)');
                         } else if ( rsvp === false ) {
                             node.append(' (Not attending 😢)');
                         }
+
                         memberContainer.append(node);
 
                         // if no RSVP yet, ask this member if they want to RSVP
                         if ( rsvp !== true && rsvp !== false ) {
+
+                            withoutRsvp++;
+
                             var memberAttending = $('<input type="radio" name="attending-' + util.ignoreNonLetter(member) + '" id="attending-' + util.ignoreNonLetter(member) + '-yes" value="1">'),
                                 memberNotAttending = $('<input type="radio" name="attending-' + util.ignoreNonLetter(member) + '" id="attending-' + util.ignoreNonLetter(member) + '-no" value="0">');
 
@@ -362,12 +377,17 @@ function UI(container) {
                                 .data('member', member)
                                 .change(updatePartyMemberRsvp.bind(memberNotAttending));
 
-                            memberContainer.append(memberAttending);
-                            memberContainer.append('<label for="attending-' + util.ignoreNonLetter(member) + '-yes">Attending</label><br>');
-                            memberContainer.append(memberNotAttending);
-                            memberContainer.append('<label for="attending-' + util.ignoreNonLetter(member) + '-no">Not Attending</label>');
+                            memberContainer
+                                .append(memberAttending)
+                                .append('<label for="attending-' + util.ignoreNonLetter(member) + '-yes">Yes!</label><br>')
+                                .append(memberNotAttending)
+                                .append('<label for="attending-' + util.ignoreNonLetter(member) + '-no">No 😢</label>');
                         }
                     }
+                }
+
+                if ( withoutRsvp > 0 ) {
+                    // console.log('')
                 }
 
                 container.append(memberContainer);
@@ -394,7 +414,7 @@ function UI(container) {
         function rsvpText(response, submitter) {
             // slightly different texts depending on if the submitter
             // is the visitor or if someone else submitted the RSVP
-            container.append('<p>Your RSVP ' + (response.rsvp === true ? 'to attend' : 'to sit this one out') + ' has been ' + ( submitter ? 'submitted by ' + submitter : ' received.' ) + '</p>');
+            container.append('<p>Your RSVP ' + (response.rsvp === true ? 'to attend' : 'to sit this one out') + ' has been ' + ( submitter ? 'submitted by ' + submitter + '.' : ' received.' ) + '</p>');
             container.append('<p>If you need to change your RSVP, please email us ' + (submitter ? '(or ask ' + submitter + ' to email us)' : '' ) + ' as soon as possible to make sure it gets updated: <a href="mailto:scott.p.donaldson@gmail.com">scott.p.donaldson@gmail.com</a></p>');
         }
 
@@ -498,6 +518,22 @@ handler.on('error', ui.showError);
 module.exports = {
     ignoreNonLetter: function ignoreNonLetter(str) {
         return str ? str.replace(/[^a-zA-Z]/g, '').toLowerCase() : '';
+    },
+    affirmToBool: function(affirm) {
+        if ( affirm === 'Yes' || affirm === 'yes' ) {
+            return true;
+        } else if ( affirm === 'No' || affirm === 'no' ) {
+            return false;
+        }
+        return affirm;
+    },
+    boolToAffirm: function(bool) {
+        if ( bool === true ) {
+            return 'Yes';
+        } else if ( bool === false ) {
+            return 'No';
+        }
+        return bool;
     }
 };
 

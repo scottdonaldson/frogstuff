@@ -76,11 +76,14 @@ function Handler($form) {
                 submitterCol: sheet['SUBMITTER'].col
             };
 
+            response.rsvp = util.affirmToBool(response.rsvp);
+
             // get RSVPs for all members in this party
             (getValue('party', i) || '').split(', ').forEach(function(member) {
                 if ( member ) {
                     var memberIndex = indexFromName(member);
                     response.party[member] = getValue('rsvp', memberIndex);
+                    response.party[member] = util.affirmToBool(response.party[member]);
                 }
             });
 
