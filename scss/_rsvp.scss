@@ -25,6 +25,12 @@ body.rsvp {
         background: $error;
     }
 
+    .rsvp-for-party {
+        clear: both;
+        display: block;
+        margin-top: 1em;
+    }
+
     label {
         cursor: pointer;
         margin-left: 10px;
