@@ -1,6 +1,7 @@
-var util = require('./util.js');
+var React = require('react'),
+    util = require('./util.js');
 
-function UI(container) {
+let UI = (container) => {
 
     // This will be updated upon response and by the user
     var data;
@@ -198,6 +199,7 @@ function UI(container) {
     }
 
     function hasBeenRsvped(response) {
+        console.log('test');
         var submitter = response.submitter.split(' ')[0];
         rsvpText(response, submitter);
     }
@@ -266,10 +268,10 @@ function UI(container) {
     }
 
     return {
-        showForm: showForm,
-        showError: showError,
-        showEmpty: showEmpty
+        showForm,
+        showError,
+        showEmpty
     };
 }
 
-module.exports = UI;
+export default UI;

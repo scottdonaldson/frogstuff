@@ -1,5 +1,4 @@
-var util = require('./util.js'),
-    ui = require('./rsvp-ui.js');
+var util = require('./util.js');
 
 function Handler($form) {
 
@@ -133,11 +132,11 @@ function Handler($form) {
     $form.on('submit', submit);
 
     return {
-        submit: submit,
-        checkName: checkName,
-        updateWith: updateWith,
-        on: on,
-        trigger: trigger
+        submit,
+        checkName,
+        updateWith,
+        on,
+        trigger
     };
 }
 
