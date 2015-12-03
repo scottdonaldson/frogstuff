@@ -20,5 +20,9 @@ module.exports = {
             return 'No';
         }
         return bool;
+    },
+
+    scrub: function(str) {
+        return str ? str.replace(/\W/g, '') : undefined;
     }
 };

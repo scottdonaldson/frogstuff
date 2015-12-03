@@ -8,9 +8,6 @@ let UI = (container) => {
 
     var scriptEndpoint = 'https://script.google.com/macros/s/AKfycbztgTxGYXDaq-wzDna_qUgAuGYY8I--7gDpISJXP7ZOOL8dmKQ/exec';
 
-    // error message that's shown in various scenarios
-    var formError = $('#form-error');
-
     // A successful response from the form handler --
     // excepts a name, RSVP (true, false, or undefined),
     // and a party (named or +1)
@@ -211,47 +208,6 @@ let UI = (container) => {
         container.append('<p>If you need to change your RSVP, please email us ' + (submitter ? '(or ask ' + submitter + ' to email us)' : '' ) + ' as soon as possible to make sure it gets updated: <a href="mailto:scott.p.donaldson@gmail.com">scott.p.donaldson@gmail.com</a></p>');
     }
 
-    // An error from the form handler.
-    // Prompt the user to enter their name again.
-    function showError(response) {
-        var input = response.input;
-        input.addClass('error');
-
-        if ( formError.length === 0 || formError.data('tries') === 0 ) {
-
-            // in case there was one already shown
-            formError.fadeOut();
-
-            formError = $('<div id="form-error">We couldn\'t find your name on the list. Did you spell it exactly as it was on your&nbsp;invitation?</div>').hide();
-            formError.data('tries', 1);
-            container.append(formError.fadeIn());
-
-            input.on('change keyup paste blur', function() {
-                $(this).removeClass('error');
-            });
-
-        } else if ( formError.data('tries') === 1 ) {
-
-            formError.data('tries', 2);
-            formError.fadeOut(function() {
-                formError.html('Hmmm, still no luck. Will you humor us and try one more time? Spelling really counts&nbsp;here...').fadeIn();
-            });
-
-        } else if ( formError.data('tries') === 2 ) {
-
-            formError.fadeOut(function() {
-                formError.html('Sorry, something must be going wrong. This is really embarrassing, but could you email your RSVP to us at <a href="mailto:scott.p.donaldson@gmail.com">scott.p.donaldson@gmail.com</a>?').fadeIn();
-            });
-        }
-    }
-
-    // Error to show when an empty name was passed
-    function showEmpty() {
-        formError = $('<div id="form-error">Er, we need to know your name to help process your RSVP. Do you know how many people will be trying to crash this wedding?</div>').hide();
-        formError.data('tries', 0);
-        container.append(formError.fadeIn());
-    }
-
     function submitRsvp() {
         // stringify the party to be sent to the server
         data.party = JSON.stringify(data.party);
@@ -268,9 +224,7 @@ let UI = (container) => {
     }
 
     return {
-        showForm,
-        showError,
-        showEmpty
+        showForm
     };
 }
 

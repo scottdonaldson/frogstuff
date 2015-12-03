@@ -5,9 +5,9 @@ import gsheet from './gsheet2';
 import rsvpHandler from './rsvp-handler';
 import rsvpUI from './rsvp-ui';
 
-import Step1 from './rsvp-steps/step1';
-import Step2 from './rsvp-steps/step2';
-import Step3 from './rsvp-steps/step3';
+import StepOne from './rsvp-steps/step1';
+import StepTwo from './rsvp-steps/step2';
+import StepThree from './rsvp-steps/step3';
 
 let buildURL = () => {
     var key1 = '1g6-vCbyXGaaqebez1cUwx',
@@ -19,16 +19,69 @@ let container = $('#content-container'),
     form = $('#check-name'),
     sheet = false;
 
-let handler = rsvpHandler(form);
+let handler = rsvpHandler();
 let ui = rsvpUI(container);
 
 class FormComponent extends React.Component {
     
     constructor() {
+
         super();
 
         this.state = {
-            step: 1
+            step: 1,
+            submitRsvp: {}
+        };
+
+        let name = null;
+
+        this.stepManager = {
+
+            rsvp: (name, rsvp) => {
+
+                let newRsvp = this.state.submitRsvp;
+                
+                newRsvp[name] = rsvp;
+
+                this.setState({
+                    submitRsvp: newRsvp
+                });
+            },
+
+            getSubmitRsvp: () => {
+                return this.state.submitRsvp
+            },
+            
+            proceed: (response) => {
+
+                this.setState({
+                    step: this.state.step + 1
+                }, () => {
+
+                    if ( response ) {
+
+                        name = response.name;
+
+                        this.setState({
+                            name,
+                            party: response.party,
+                            rsvp: response.rsvp,
+                            submitter: response.submitter
+                        });
+
+                    }
+
+                    let prevStep = this.refs[this.state.step - 1];
+                    prevStep = ReactDOM.findDOMNode(prevStep);
+                    prevStep = $(prevStep);
+                    prevStep.fadeOut(() => {
+                        let newStep = this.refs[this.state.step];
+                        newStep = ReactDOM.findDOMNode(newStep);
+                        newStep = $(newStep);
+                        newStep.fadeIn();
+                    });
+                });
+            }
         };
     }
 
@@ -47,14 +100,20 @@ class FormComponent extends React.Component {
 
     render() {
 
-        let step1Style = {
-            display: this.state.step === 1 ? 'block' : 'none'
+        let step2Style = {
+            display: 'none'
+        };
+
+        let step3Style = {
+            display: 'none'
         };
 
         return (
-            <Step1 />
-            <Step2 />
-            <Step3 />
+            <div>
+                <StepOne ref="1" stepManager={this.stepManager} handler={handler} />
+                <StepTwo ref="2" style={step2Style} stepManager={this.stepManager} response={this.state} />
+                <StepThree ref="3" style={step3Style} stepManager={this.stepManager} />
+            </div>
         );
     }
 }
@@ -63,8 +122,3 @@ ReactDOM.render(
     <FormComponent />,
     document.getElementById('content-container')
 );
-
-/* handler.on('empty', ui.showEmpty);
-handler.on('success', ui.showForm);
-handler.on('error', ui.showError);
-*/

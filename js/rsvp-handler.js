@@ -1,16 +1,9 @@
 var util = require('./util.js');
 
-function Handler($form) {
+function Handler() {
 
-    var nameInput = $form.find('[name="your-name"]'),
-        sheet = false,
+    var sheet = null,
         callbacks = {};
-
-    function submit(e) {
-        e.preventDefault();
-        var response = checkName(sheet);
-        trigger(response.type, response);
-    }
 
     function updateWith(newSheet) {
         sheet = newSheet;
@@ -48,13 +41,11 @@ function Handler($form) {
         return sheet[col].data;
     }
 
-    function checkName(sheet) {
+    function checkName(name) {
 
-        var name,
-            altCopy,
+        var altCopy,
             i = 0;
 
-        name = nameInput.val();
         name = util.ignoreNonLetter(name);
 
         if ( name === '' ) {
@@ -119,8 +110,7 @@ function Handler($form) {
 
             // if still not found, this person is an imposter!
             return {
-                type: 'error',
-                input: nameInput
+                type: 'error'
             };
 
         } else {
@@ -129,10 +119,7 @@ function Handler($form) {
         }
     }
 
-    $form.on('submit', submit);
-
     return {
-        submit,
         checkName,
         updateWith,
         on,

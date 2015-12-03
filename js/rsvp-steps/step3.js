@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Step3 extends React.Component {
+class StepThree extends React.Component {
 
 	constructor() {
 		super();
@@ -8,14 +8,11 @@ class Step3 extends React.Component {
 
 	render() {
 		return (
-			<div>
-                <h2>Hi! Were glad youve decided to RSVP and (hopefully!) celebrate our wedding with us.</h2>
-                <p>Enter your name below and lets get started:</p>
-                <input id="your-name" name="your-name" type="text" />
-                <input type="submit" id="submit" value="Ok, lets go!" />
+			<div style={this.props.style}>
+                <h2>Test Step 3</h2>
             </div>
         );
 	}
 }
 
-export default Step3;
+export default StepThree;
