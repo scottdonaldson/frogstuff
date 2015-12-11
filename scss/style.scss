@@ -1,15 +1,15 @@
-@import "normalize";
-@import "reset";
-@import "fonts";
-
-
-
 //-----------COLORS
 
 $grey: #666;
 $peagreen: #e0ddae;
 $greenbean: #a5ad97;
 $error: #de6d77;
+
+//----------IMPORTS
+@import "normalize";
+@import "reset";
+@import "fonts";
+@import "rsvp";
 
 //-----------FONTS
 
@@ -87,14 +87,17 @@ $error: #de6d77;
 
 //-------------Basic Stuff
 
-h1, h2, h3, h4, h5, h6, p, a {
+body {
 	font-family: 'sofia', Arial, sans-serif;
-	font-weight: normal;
 	color: $grey;
-	line-height: 150%;
+	line-height: 1.5;
 }
 
-html{
+h1, h2, h3, h4, h5, h6, p, a {
+	font-weight: normal;
+}
+
+html {
 	overflow-x:hidden;
 }
 
@@ -281,6 +284,56 @@ body.save-the-date {
     background: $grey;
 }
 
+@keyframes load {
+    0%,
+    80%,
+    100% {
+    box-shadow: 0 2.5em 0 -1.3em #ffffff;
+    }
+    40% {
+    box-shadow: 0 2.5em 0 0 #ffffff;
+    }
+}
+
+#loading:before,
+#loading:after,
+#loading {
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    animation-fill-mode: both;
+    animation: load 1.8s infinite ease-in-out;
+}
+
+// include a 2 second delay -- if data loads faster than this
+// then there's no need to show the loading animation
+$loading_delay: 2s;
+#loading {
+    animation-delay: $loading_delay - 0.16s;
+    font-size: 10px;
+    margin-top: -1.25em;
+    margin-left: -1.25em;
+    left: 50%;
+    top: 50%;
+    position: fixed;
+
+    &:before {
+        left: -3.5em;
+        animation-delay: $loading_delay - 0.32s;
+    }
+
+    &:after {
+        left: 3.5em;
+        animation-delay: $loading_delay;
+    }
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+    }
+}
 .save-the-date-bg {
     // background-attachment: fixed;
     background-repeat: no-repeat;
@@ -310,16 +363,42 @@ $stop: 65%;
     background: -ms-linear-gradient(left,  $transparent_black 0%,$transparent_black $stop,transparent 99%); /* IE10+ */
     background: linear-gradient(to right,  $transparent_black 0%,$transparent_black $stop,transparent 99%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$transparent_black', endColorstr='transparent',GradientType=1 ); /* IE6-9 */
+
+    @media screen and (max-width: 840px) {
+        background: -moz-linear-gradient(top, $transparent_black 0%, $transparent_black $stop, transparent 99%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$transparent_black), color-stop($stop,$transparent_black), color-stop(99%,transparent)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, $transparent_black 0%,$transparent_black $stop,transparent 99%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, $transparent_black 0%,$transparent_black $stop,transparent 99%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, $transparent_black 0%,$transparent_black $stop,transparent 99%); /* IE10+ */
+        background: linear-gradient(to bottom,  $transparent_black 0%,$transparent_black $stop,transparent 99%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$transparent_black', endColorstr='transparent',GradientType=1 ); /* IE6-9 */
+    }
+}
+
+.gradient-bg {
+    @include gradient;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 61.42%;
+
+    @media screen and (max-width: 840px) {
+        height: 60vh;
+        width: 100%;
+    }
 }
 
 .save-the-date-content {
-    @include gradient;
     float: left;
     padding: 0 8vw 4vw;
+    min-height: 100vh;
     width: 61.42%;
-    height: 100vh;
+
+    .no-js & { display: none !important; }
 
     @media screen and (max-width: 720px) {
+        padding-top: 2em;
         width: 100%;
     }
 
@@ -341,21 +420,18 @@ $stop: 65%;
         padding: 20px 0  50px 0;
         max-width: 50vw;
 
-
         @media screen and (max-width: 720px) {
-            max-width: 80vw;
+            display: none;
         }
     }
-
-
 
     // if there's no key, show the no-key image
     .no-key & img.no-key {
         display: block;
-        max-height: 80vh;
+        max-height: 75vh;
         top: 45vh;
         left: 50%;
-        max-width: 64vw;
+        max-width: 52vw;
         transform: translateY(-50%) translateX(-50%);
     }
 
@@ -364,7 +440,7 @@ $stop: 65%;
             background: transparent;
             width: 100%;
 
-            &:before {
+            /* &:before {
                 display: block;
                 content: "";
                 position: absolute;
@@ -374,7 +450,7 @@ $stop: 65%;
                 right: 0;
                 width: 61.42%;
                 @include gradient;
-            }
+            } */
 
             img.no-key {
                 max-height: 60vh;
@@ -382,34 +458,33 @@ $stop: 65%;
                 top: 30vh;
 
                 @media screen and (max-width: 500px) {
-                    max-width: 106vw;
-                    margin-left: -3vw;
+                    max-width: 110%;
                 }
             }
         }
     }
 }
 
-form {
-    input, textarea {
+input[type="text"],
+input[type="email"],
+input[type="submit"],
+textarea {
+    border: 0;
+    color: #666;
+    display: block;
+    font-family: 'sofia';
+    margin-bottom: 20px;
+    padding: 0.5em;
+    transition: 0.25s background;
+    width: 100%;
 
-        border: 0;
-        color: #666;
-        display: block;
-        font-family: 'sofia';
-        margin-bottom: 20px;
-        padding: 0.5em;
-        transition: 0.25s background;
-        width: 100%;
-
-        &:focus {
-            background: rgba(255, 255, 255, 0.9);
-            outline: 0;
-        }
+    &:focus {
+        background: rgba(255, 255, 255, 0.9);
+        outline: 0;
     }
-
-    textarea { color: #666 !important; }
 }
+
+textarea { color: #666 !important; }
 
 #greetings {
     color: #fff;
@@ -432,6 +507,7 @@ form {
 #address {
     height: 120px;
     border-radius: 2px;
+    z-index: 9999;
 
     &.error {
         border: 2px solid $error;
@@ -445,6 +521,17 @@ form {
     width: 60%;
 
     p { margin: 0; @include vcenter; }
+
+    @media screen and (max-width: 500px) {
+        height: auto;
+        padding-bottom: 4em;
+        width: calc(100% - 170px);
+
+        p {
+            top: 0;
+            transform: translateY(0);
+        }
+    }
 }
 
 #submit {
@@ -456,21 +543,56 @@ form {
     text-transform: uppercase;
     width: 40%;
     float: right;
-
     transition: 0.2s;
 
     &:hover, &:active, &:focus {
         background: #fff;
         color: #666;
     }
+
+    @media screen and (max-width: 500px) {
+        min-width: 160px;
+    }
+}
+
+#thanks {
+    padding-bottom: 2em;
 }
 
 .thanks-header {
     margin-bottom: 1.5em;
 }
 
+#greetings-container {
+    opacity: 0;
+
+    .no-key & { display: none; }
+}
+
 #save-the-date-copyright {
     opacity: 0.5;
+    position: absolute;
+    bottom: 2em;
+}
+
+.save-the-date-fallback {
+    display: none;
+    padding: 4vw 8vw;
+    min-height: 100vh;
+    width: 61.42%;
+
+    * { color: #fff; }
+    a { color: #fff; }
+
+    .no-js & {
+        display: block;
+    }
+
+    img {
+        display: block;
+        margin: 0 auto;
+        max-width: 500px;
+    }
 }
 
 //-----------Responsive

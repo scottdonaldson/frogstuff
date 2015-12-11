@@ -3,30 +3,39 @@
 var win = $(window),
 	body = $('body');
 
-function fade(el, target, orig) {
+var Hub = function() {
+	this.events = {};
+};
 
-    if ( el.style.display === 'none' ) el.style.display = 'block';
+Hub.prototype.on = function(evt, cb, el) {
+	this.events[evt] = el ? cb.bind(el) : cb;
+};
 
-    var last = +new Date();
-    (function tick() {
-        var next = +new Date();
-        el.style.opacity = +el.style.opacity + (target > orig ? (next - last) : (last - next)) / 250;
-        last = next;
+Hub.prototype.off = function(evt) {
+	delete this.events[evt];
+};
 
-        if ( (target > orig && +el.style.opacity < target) || (target < orig && +el.style.opacity > target) ) {
-            requestAnimationFrame(tick);
-        }
+Hub.prototype.trigger = function(evt) {
+	this.events[evt]();
+};
 
-        // if done fading out, hide it all the way
-        if ( target === 0 && +el.style.opacity <= 0 ) el.style.display = 'none';
-    })();
-}
+window.hub = new Hub();
+
+// loading animation
+hub.on('loaded', function() {
+	var loading = $('#loading');
+	loading.fadeOut(function() {
+		loading.remove();
+	});
+});
 
 function setBG(el) {
-	if ( el.getAttribute('data-bg') ) {
-		el.style.backgroundImage = 'url(' + this.src + ')';
+	if ( el.attr('data-bg') ) {
+		el.css('background-image', 'url(' + this.attr('src') + ')');
 	}
-	fade(el, 100, 0);
+	el.animate({
+		opacity: 1
+	});
 }
 
 function lazyload() {
@@ -34,16 +43,16 @@ function lazyload() {
 	var img;
 
 	if ( this.getAttribute('data-bg') ) {
-		img = document.createElement('img');
-		img.src = this.getAttribute('data-bg');
+		img = $('<img>');
+		img.attr('src', this.getAttribute('data-bg'));
 	} else if ( this.tagName === 'IMG' ) {
-		img = this;
+		img = $(this);
 	}
 
-	if ( img.complete ) {
-		setBG.call(img, this);
+	if ( img[0].complete ) {
+		setBG.call(img, $(this));
 	} else {
-		img.onload = setBG.bind(img, this);
+		img.load(setBG.bind(img, $(this)));
 	}
 }
 

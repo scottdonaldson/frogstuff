@@ -67,11 +67,14 @@ aaadP"'             `""Yb,       .-'  _.'- '  _.-'     (
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="shortcut icon" href="<?= $url; ?>/favicon.ico">
-
-        <link rel="stylesheet" href="<?= $url; ?>/css/style.css">
+        <link rel="stylesheet" href="<?= $url; ?>/css/style.css?v=<?php echo date('YmdHis'); ?>">
 
         <script src="<?= $url; ?>/js/vendor/modernizr-2.6.2.min.js"></script>
+
+        <link rel="icon" href="<?= $url; ?>/img/favi/favicon-16x16.png" sizes="16x16" type="image/png">
+        <link rel="icon" href="<?= $url; ?>/img/favi/favicon-32x32.png" sizes="32x32" type="image/png">
+        <link rel="icon" href="<?= $url; ?>/img/favi/favicon-96x96.png" sizes="96x96" type="image/png">
+
     </head>
 
     <?php

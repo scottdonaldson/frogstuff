@@ -19,6 +19,7 @@
         rowInput = $('#row'),
         addressInput = $('#address'),
         submitButton = $('#submit'),
+        originalSubmitText = submitButton.val(),
         noAddress = $('#no-address'),
         thanks = $('#thanks');
 
@@ -53,18 +54,69 @@
         }
     }
 
+    (function doneLoading() {
+        var saveGraphic;
+        if ( !key ) {
+            saveGraphic = $('img.no-key.lazy-load');
+            if ( saveGraphic[0].complete ) {
+                return hub.trigger('loaded');
+            }
+            saveGraphic.load(function() {
+                hub.trigger('loaded');
+            });
+        }
+    })();
+
     function parseResponse(data, cb) {
+
         var cells = data.feed.entry;
         cells.forEach(parseCell);
         cb();
     }
 
     function retrieveData(cb) {
+        var timeout = 15000,
+            start = 0,
+            errorShown = false;
+
+        // if no response after 15 seconds, show loading error
+        (function increment() {
+            start++;
+            if ( start >= timeout && !errorShown ) {
+                return showLoadingError();
+            } else if ( !errorShown ) {
+                setTimeout(increment, 1000);
+            }
+        })();
+
+        function showLoadingError() {
+
+            errorShown = true;
+
+            var errorMessage = "<p>Oops! There was an error loading this page. Try refreshing, but if that doesn't work, you can always email us your address at <a href='mailto:scott.p.donaldson@gmail.com'>scott.p.donaldson@gmail.com</a>.</p>";
+
+            hub.trigger('loaded');
+
+            greetings.html(errorMessage);
+            greetingsContainer.find('form').hide();
+            greetingsContainer.animate({
+                opacity: 1
+            }, 1000);
+        }
+
+        function loadingSuccess(data) {
+            // no longer need to show loading anim
+            hub.trigger('loaded');
+            parseResponse(data, cb);
+        }
+
         $.ajax({
             url: buildURL(),
             success: function(data) {
-                parseResponse(data, cb);
-            }
+                if ( gup('error') ) return showLoadingError();
+                loadingSuccess(data);
+            },
+            error: showLoadingError
         });
     }
 
@@ -119,34 +171,38 @@
         greeting += '<br>';
 
         if ( item.address ) {
-            greeting += '<span class="please">You already sent us your address! But if you want to edit it, you can do&nbsp;that&nbsp;here:</span>';
+            greeting += '<span class="please">You (or someone in your party) already sent us your address! But if you want to edit it, you can do&nbsp;that&nbsp;here:</span>';
             addressInput.val(item.address);
         } else {
             greeting += '<span class="please">Please let us know where we should send your invite:</span>';
         }
 
         greetings.html(greeting);
-        greetingsContainer.fadeIn(1000);
+        greetingsContainer.animate({
+            opacity: 1
+        }, 1000);
+    }
+
+    function showThanks() {
+        form.add(greetings).fadeOut(function() {
+            thanks.fadeIn();
+        });
     }
 
     function postData(data) {
         $.ajax({
             url: 'https://script.google.com/macros/s/AKfycbz9nlUbYGAJYwQNsdmuKc7uqNyh5fNEL2qQ1qm67czt2th7RkJu/exec',
             type: 'POST',
+            // async: false,
             data: data,
-            success: function(data) {
-                form.add(greetings).fadeOut(function() {
-                    thanks.fadeIn();
-                });
-            },
-            error: function(err) {
-                console.log(err);
-            }
+            success: showThanks,
+            complete: showThanks
         });
     }
 
     function showNoAddressError() {
         addressInput.addClass('error');
+        submitButton.val(originalSubmitText);
         noAddress.fadeIn();
     }
 
@@ -162,6 +218,8 @@
         var col,
             addressCol,
             data = {};
+
+        submitButton.val('...');
 
         // get column of ADDRESS
         for ( col in columns ) {
@@ -179,8 +237,14 @@
         }
     }
 
-    retrieveData(findMatch);
+    if ( !!key ) retrieveData(findMatch);
     addressInput.on('keyup', hideNoAddressError);
+    addressInput.on('focus', function() {
+        $('html, body').animate({
+            scrollTop: addressInput.offset().top - 20
+        })
+    });
+
     form.on('submit', submit);
 
 })(jQuery);
