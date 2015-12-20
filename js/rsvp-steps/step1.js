@@ -92,7 +92,7 @@ class StepOne extends React.Component {
 	                <p>Enter your name below and lets get started:</p>
 	                <input className={inputClass} ref="your-name" name={random} type="text" onChange={removeError} />
 	                <div className="clearfix">
-		                <input type="submit" id="submit" value="Ok, lets go!" />
+		                <input type="submit" id="submit" value="Ok, let's go!" />
 		            </div>
 	            </form>
 	            <div className={formErrorClass} ref="error" dangerouslySetInnerHTML={errorMessage()}></div>

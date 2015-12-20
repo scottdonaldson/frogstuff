@@ -8,7 +8,8 @@ class StepTwo extends React.Component {
 
 		this.state = {
 			showParty: false,
-			userRsvp: false
+			userRsvp: false,
+			errorMessage: ''
 		};
 	}
 
@@ -58,38 +59,89 @@ class StepTwo extends React.Component {
 			});
 		}
 
+		let manageRsvp = (name, rsvp) => {
+			// update RSVP
+			this.props.stepManager.rsvp.call(null, name, rsvp);
+
+			// if showing full party and an error message had been shown,
+			// remove it once all party members are accounted for
+			if ( this.state.showParty ) {
+				for ( let name in this.props.response.party ) {
+					if ( !(name in this.props.stepManager.getSubmitRsvp()) ) {
+						return null;
+					}
+				}
+			} 
+			
+			// otherwise, on change, error message should be null
+			this.setState({
+				errorMessage: ''
+			});
+		};
+
 		let showInputs = (name) => {
 			return (
 				<div>
-					<input type="radio" name={"attending-" + util.scrub(name)} id={"attending-" + util.scrub(name) + "-yes"} onChange={this.props.stepManager.rsvp.bind(null, name, true)} />
+					<input type="radio" name={"attending-" + util.scrub(name)} id={"attending-" + util.scrub(name) + "-yes"} onChange={manageRsvp.bind(this, name, true)} />
 	            	<label htmlFor={"attending-" + util.scrub(name) + "-yes"}>Yes!</label><br />
-	            	<input type="radio" name={"attending-" + util.scrub(name)} id={"attending-" + util.scrub(name) + "-no"} onChange={this.props.stepManager.rsvp.bind(null, name, false)} />
+	            	<input type="radio" name={"attending-" + util.scrub(name)} id={"attending-" + util.scrub(name) + "-no"} onChange={manageRsvp.bind(this, name, false)} />
 	            	<label htmlFor={"attending-" + util.scrub(name) + "-no"}>No 😢</label>
 	            </div>
 	        );
 		};
 
-		let showTheParty = () => {
+		let manageTheParty = (bool) => {
 			this.setState({
-				showParty: true
+				showParty: bool
 			});
+		};
+
+		let showTheParty = manageTheParty.bind(this, true);
+		let hideTheParty = () => {
+			
+			manageTheParty.call(this, false);
+			
+			// on hiding the party, in case user had checked, remove add'l party RSVPs
+			for ( let name in this.props.response.party ) {
+				if ( this.props.stepManager.getSubmitRsvp()[name] ) {
+					delete this.props.stepManager.getSubmitRsvp()[name];
+				}
+			}
+
+			// if user has RSVPed their self, remove error message
+			if ( this.props.response.name in this.props.stepManager.getSubmitRsvp() ) {
+				this.setState({
+					errorMessage: ''
+				});
+			}
 		};
 
 		let showPartyLinkStyle = { display: this.state.showParty ? 'none' : 'block' };
 		let showPartyStyle = { display: this.state.showParty ? 'block' : 'none' };
+
+		let rsvpForAll = () => {
+			this.setState({
+				errorMessage: 'Hey, you haven\'t finished your RSVP! Please finish before moving on. We promise it\'ll be worth your while.'
+			});
+		};
 
 		let checkRsvp = (e) => {
 			e.preventDefault();
 
 			// need to make sure all radio buttons have been checked
 			if ( !(this.props.response.name in this.props.stepManager.getSubmitRsvp()) ) {
-				console.log('hey, no good!');
+				return rsvpForAll.call(this);
+			
+			// if showing the party, make sure they've checked all
 			} else if ( this.state.showParty ) {
 				for ( let name in this.props.response.party ) {
 					if ( !(name in this.props.stepManager.getSubmitRsvp()) ) {
-						console.log('hey, you must RSVP for your party!');
+
+						console.log('no rsvp for party');
+						return rsvpForAll.call(this);
 					}
 				}
+				this.props.stepManager.proceed();
 			} else {
 				this.props.stepManager.proceed();
 			}
@@ -102,7 +154,8 @@ class StepTwo extends React.Component {
 					{showInputs.call(this, member)}
 	            </div>
 			);
-		});
+		}).concat(<a href="#" key="nvm" onClick={hideTheParty.bind(this)}>Never mind, I am just going to RSVP for myself.</a>);
+		party.unshift(<p key="">Your party:</p>);
 
 		return (
 			<form style={this.props.style} onSubmit={checkRsvp.bind(this)}>
@@ -119,7 +172,7 @@ class StepTwo extends React.Component {
                 		{plusOne}
                 	</div>
 
-                	<a href="#" onClick={showTheParty.bind(this)} style={showPartyLinkStyle}>Would you like to RSVP for your party?</a>
+                	<a href="#" onClick={showTheParty} style={showPartyLinkStyle}>Would you like to RSVP for your party?</a>
 
                 	<div style={showPartyStyle}>
                 		{party}
@@ -129,6 +182,8 @@ class StepTwo extends React.Component {
 		                <input type="submit" id="submit" value="Ok, lets go!" />
 		            </div>
                 </div>
+
+                {this.state.errorMessage}
             </form>
         );
 	}

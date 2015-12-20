@@ -51,6 +51,12 @@ class FormComponent extends React.Component {
             getSubmitRsvp: () => {
                 return this.state.submitRsvp
             },
+
+            set: (key, value) => {
+                let newState = {};
+                newState[key] = value;
+                this.setState(newState);
+            },
             
             proceed: (response) => {
 
@@ -81,6 +87,10 @@ class FormComponent extends React.Component {
                         newStep.fadeIn();
                     });
                 });
+            },
+
+            submit: () => {
+
             }
         };
     }
@@ -100,19 +110,15 @@ class FormComponent extends React.Component {
 
     render() {
 
-        let step2Style = {
-            display: 'none'
-        };
+        let step2Style = { display: 'none' };
 
-        let step3Style = {
-            display: 'none'
-        };
+        let step3Style = $.extend({}, step2Style);
 
         return (
             <div>
                 <StepOne ref="1" stepManager={this.stepManager} handler={handler} />
-                <StepTwo ref="2" style={step2Style} stepManager={this.stepManager} response={this.state} />
-                <StepThree ref="3" style={step3Style} stepManager={this.stepManager} />
+                {this.state.step > 1 ? <StepTwo ref="2" style={step2Style} stepManager={this.stepManager} response={this.state} /> : ''}
+                {this.state.step === 3 ? <StepThree ref="3" style={step3Style} stepManager={this.stepManager} /> : ''}
             </div>
         );
     }

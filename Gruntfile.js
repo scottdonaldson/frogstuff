@@ -34,13 +34,6 @@ module.exports = function(grunt) {
                 options: {
                     spawn: false
                 }
-            },
-            js: {
-                files: ['js/**/*.js'],
-                tasks: ['browserify'],
-                options: {
-                    spawn: false
-                }
             }
         }
 
