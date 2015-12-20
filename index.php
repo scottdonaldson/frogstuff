@@ -28,14 +28,14 @@
 			<p> Morning After Reception <br>
 				Morrison Clark Hotel <br>
 				9am - 11am <br>
-				NO RSVP REQUIRED &mdash; Just pop on in </p>
+			</p>
 		</div>
 	</div>
 
 	<div class="content">
 		<div class="clearfix halfcolumn">
 			<img class="cursive" alt="Where to Stay" src="img/wheretostay.png">
-			<p>A block of rooms have been booked at newly renovated Morrison Clark Hotel. <br>
+			<p>A block of rooms have been booked at the historic Morrison Clark Hotel. <br>
 			<p>It's a 6 minute walk to reception and a 7 minute walk to metro.</p>
 			<p><a href="https://www.google.com/maps/d/edit?mid=zRNfw6tt-0CE.k0nw9bIx8P_4&usp=sharing" target="_blank">1015 L St NW, Washington DC 20001 </a><br>
 			(202) 898-1200 </p>
