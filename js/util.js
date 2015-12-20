@@ -1,7 +1,9 @@
 module.exports = {
+    
     ignoreNonLetter: function ignoreNonLetter(str) {
         return str ? str.replace(/[^a-zA-Z]/g, '').toLowerCase() : '';
     },
+    
     affirmToBool: function(affirm) {
         if ( affirm === 'Yes' || affirm === 'yes' ) {
             return true;
@@ -10,6 +12,7 @@ module.exports = {
         }
         return affirm;
     },
+    
     boolToAffirm: function(bool) {
         if ( bool === true ) {
             return 'Yes';
@@ -17,5 +20,9 @@ module.exports = {
             return 'No';
         }
         return bool;
+    },
+
+    scrub: function(str) {
+        return str ? str.replace(/\W/g, '') : undefined;
     }
 };

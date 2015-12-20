@@ -1,31 +1,124 @@
-function buildURL() {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import util from './util';
+import gsheet from './gsheet2';
+import rsvpHandler from './rsvp-handler';
+import rsvpUI from './rsvp-ui';
+
+import StepOne from './rsvp-steps/step1';
+import StepTwo from './rsvp-steps/step2';
+import StepThree from './rsvp-steps/step3';
+
+let buildURL = () => {
     var key1 = '1g6-vCbyXGaaqebez1cUwx',
         key2 = 'gNyLvlEIen_MBjyTVrcUcU';
     return 'https://spreadsheets.google.com/feeds/cells/' + key1 + key2 + '/1/public/basic?alt=json';
-}
+};
 
-var container = $('#content-container'),
+let container = $('#content-container'),
     form = $('#check-name'),
     sheet = false;
 
-var util = require('./util.js'),
-    gsheet = require('./gsheet.js'),
-    handler = require('./rsvp-handler.js')(form),
-    ui = require('./rsvp-ui.js')(container);
+let handler = rsvpHandler();
+let ui = rsvpUI(container);
 
-// once the data from the sheet is ready, update the handler
-gsheet(buildURL()).ready(function() {
+class FormComponent extends React.Component {
+    
+    constructor() {
 
-    // hide loading animation
-    hub.trigger('loaded');
+        super();
 
-    // show form
-    form.fadeIn();
+        this.state = {
+            step: 1,
+            submitRsvp: {}
+        };
 
-    // update form handler with data
-    handler.updateWith(this.byKey());
-});
+        let name = null;
 
-handler.on('empty', ui.showEmpty);
-handler.on('success', ui.showForm);
-handler.on('error', ui.showError);
+        this.stepManager = {
+
+            rsvp: (name, rsvp) => {
+
+                let newRsvp = this.state.submitRsvp;
+                
+                newRsvp[name] = rsvp;
+
+                this.setState({
+                    submitRsvp: newRsvp
+                });
+            },
+
+            getSubmitRsvp: () => {
+                return this.state.submitRsvp
+            },
+            
+            proceed: (response) => {
+
+                this.setState({
+                    step: this.state.step + 1
+                }, () => {
+
+                    if ( response ) {
+
+                        name = response.name;
+
+                        this.setState({
+                            name,
+                            party: response.party,
+                            rsvp: response.rsvp,
+                            submitter: response.submitter
+                        });
+
+                    }
+
+                    let prevStep = this.refs[this.state.step - 1];
+                    prevStep = ReactDOM.findDOMNode(prevStep);
+                    prevStep = $(prevStep);
+                    prevStep.fadeOut(() => {
+                        let newStep = this.refs[this.state.step];
+                        newStep = ReactDOM.findDOMNode(newStep);
+                        newStep = $(newStep);
+                        newStep.fadeIn();
+                    });
+                });
+            }
+        };
+    }
+
+    componentWillMount() {
+        // once the data from the sheet is ready, update the handler
+        let sheet = gsheet(buildURL());
+        sheet.ready(() => {
+
+            // hide loading animation
+            hub.trigger('loaded');
+
+            // update form handler with data
+            handler.updateWith(sheet.byKey());
+        });
+    }
+
+    render() {
+
+        let step2Style = {
+            display: 'none'
+        };
+
+        let step3Style = {
+            display: 'none'
+        };
+
+        return (
+            <div>
+                <StepOne ref="1" stepManager={this.stepManager} handler={handler} />
+                <StepTwo ref="2" style={step2Style} stepManager={this.stepManager} response={this.state} />
+                <StepThree ref="3" style={step3Style} stepManager={this.stepManager} />
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(
+    <FormComponent />,
+    document.getElementById('content-container')
+);

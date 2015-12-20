@@ -25,6 +25,12 @@ body.rsvp {
         background: $error;
     }
 
+    .rsvp-for-party {
+        clear: both;
+        display: block;
+        margin-top: 1em;
+    }
+
     label {
         cursor: pointer;
         margin-left: 10px;
@@ -52,11 +58,17 @@ body.rsvp {
         top: -0.4em;
     }
 
-    #form-error {
+    .form-error {
         left: 0;
+        opacity: 0;
         position: absolute;
         text-align: center;
+        transition: 0.2s opacity;
         top: 100%;
         width: 100%;
+
+        &.active {
+            opacity: 1;
+        }
     }
 }
