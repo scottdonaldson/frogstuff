@@ -33,7 +33,7 @@ class StepTwo extends React.Component {
 			if ( response.name === response.submitter ) submitter = false;
 
 			let __html = '<div><p>Your RSVP ' + ( response.rsvp ? 'to attend' : 'to sit this one out' ) + ' has been ' + ( submitter ? 'submitted by ' + submitter + '.' : ' received.' ) + '</p>';
-			__html += '<p>If you need to change your RSVP, please email us ' + ( submitter ? '(or ask ' + submitter + ' to email us)' : '' ) + ' as soon as possible to make sure it gets updated: <a href="mailto:scott.p.donaldson@gmail.com">scott.p.donaldson@gmail.com</a></p></div>';
+			__html += '<p>If you need to change your RSVP, please email us ' + ( submitter ? '(or ask ' + submitter + ' to email us)' : '' ) + ' by March 1st to make sure it gets updated: <a href="mailto:scott.p.donaldson@gmail.com">scott.p.donaldson@gmail.com</a></p></div>';
 			return {
 				__html
 			};
@@ -106,6 +106,9 @@ class StepTwo extends React.Component {
 				if ( this.props.stepManager.getSubmitRsvp()[name] ) {
 					delete this.props.stepManager.getSubmitRsvp()[name];
 				}
+
+				// uncheck the boxes
+				$('[name="attending-' + util.scrub(name) + '"]').attr('checked', false);
 			}
 
 			// if user has RSVPed their self, remove error message
@@ -155,7 +158,11 @@ class StepTwo extends React.Component {
 	            </div>
 			);
 		}).concat(<a href="#" key="nvm" onClick={hideTheParty.bind(this)}>Never mind, I am just going to RSVP for myself.</a>);
-		party.unshift(<p key="">Your party:</p>);
+		party.unshift(<h3 key="">Your party:</h3>);
+
+		let submitStyle = {
+			marginTop: 20
+		};
 
 		return (
 			<form style={this.props.style} onSubmit={checkRsvp.bind(this)}>
@@ -172,14 +179,14 @@ class StepTwo extends React.Component {
                 		{plusOne}
                 	</div>
 
-                	<a href="#" onClick={showTheParty} style={showPartyLinkStyle}>Would you like to RSVP for your party?</a>
+                	<a href="#" onClick={showTheParty} style={showPartyLinkStyle}>{"Would you like to RSVP for someone else in your party?"}</a>
 
                 	<div style={showPartyStyle}>
                 		{party}
                 	</div>
 
                 	<div className="clearfix">
-		                <input type="submit" id="submit" value="Ok, lets go!" />
+		                <input type="submit" style={submitStyle} value="Ok, let's go!" />
 		            </div>
                 </div>
 

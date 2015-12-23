@@ -89,6 +89,23 @@ class FormComponent extends React.Component {
                 });
             },
 
+            retreat: () => {
+                
+                this.setState({
+                    step: this.state.step - 1
+                }, () => {
+                    let prevStep = this.refs[this.state.step - 1];
+                    prevStep = ReactDOM.findDOMNode(prevStep);
+                    prevStep = $(prevStep);
+                    prevStep.fadeOut(() => {
+                        let newStep = this.refs[this.state.step];
+                        newStep = ReactDOM.findDOMNode(newStep);
+                        newStep = $(newStep);
+                        newStep.fadeIn();
+                    });
+                });
+            },
+
             submit: () => {
 
             }

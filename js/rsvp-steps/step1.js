@@ -56,8 +56,6 @@ class StepOne extends React.Component {
 
 		let random = Math.round(Math.random() * 1000000000);
 
-		let proceed = this.props.stepManager.proceed;
-
 		let checkName = (e) => {
 			e.preventDefault();
 
@@ -88,11 +86,11 @@ class StepOne extends React.Component {
 		return (
 			<div>
 				<form style={this.props.style} onSubmit={checkName}>
-	                <h2>Hi! Were glad youve decided to RSVP and (hopefully!) celebrate our wedding with us.</h2>
-	                <p>Enter your name below and lets get started:</p>
+	                <h2>{"Hi! We're glad youve decided to RSVP and (hopefully!) celebrate our wedding with us."}</h2>
+	                <p>{"Enter your full name below and let's get started:"}</p>
 	                <input className={inputClass} ref="your-name" name={random} type="text" onChange={removeError} />
 	                <div className="clearfix">
-		                <input type="submit" id="submit" value="Ok, let's go!" />
+		                <input type="submit" value="Ok, let's go!" />
 		            </div>
 	            </form>
 	            <div className={formErrorClass} ref="error" dangerouslySetInnerHTML={errorMessage()}></div>

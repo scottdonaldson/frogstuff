@@ -4,9 +4,9 @@ include('includes/header.php'); ?>
 
 <div id="loading"></div>
 
-<div id="container" style="height: 100%;">
+<div id="container">
 
-	<div id="content-container" class="vcenter clearfix"></div>
+	<div id="content-container" class="clearfix"></div>
 
 </div>
 
