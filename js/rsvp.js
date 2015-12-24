@@ -8,6 +8,7 @@ import rsvpUI from './rsvp-ui';
 import StepOne from './rsvp-steps/step1';
 import StepTwo from './rsvp-steps/step2';
 import StepThree from './rsvp-steps/step3';
+import StepFour from './rsvp-steps/step4';
 
 let buildURL = () => {
     var key1 = '1g6-vCbyXGaaqebez1cUwx',
@@ -52,6 +53,10 @@ class FormComponent extends React.Component {
                 return this.state.submitRsvp
             },
 
+            get: (key) => {
+                return this.state[key];
+            },
+
             set: (key, value) => {
                 let newState = {};
                 newState[key] = value;
@@ -83,8 +88,7 @@ class FormComponent extends React.Component {
                     prevStep.fadeOut(() => {
                         let newStep = this.refs[this.state.step];
                         newStep = ReactDOM.findDOMNode(newStep);
-                        newStep = $(newStep);
-                        newStep.fadeIn();
+                        $(newStep).fadeIn();
                     });
                 });
             },
@@ -100,14 +104,43 @@ class FormComponent extends React.Component {
                     prevStep.fadeOut(() => {
                         let newStep = this.refs[this.state.step];
                         newStep = ReactDOM.findDOMNode(newStep);
-                        newStep = $(newStep);
-                        newStep.fadeIn();
+                        $(newStep).fadeIn();
                     });
                 });
             },
 
-            submit: () => {
+            submit: (halt) => {
+                
+                let data = {
+                    name: this.state.name,
+                    party: [],
+                    restrictions: this.stepManager.get('restrictions') || ''
+                };
 
+                for ( let name in this.stepManager.getSubmitRsvp() ) {
+                    let details = this.stepManager.getSubmitRsvp()[name];
+                    let nameRsvp = {
+                        name,
+                        rsvp: !details ? false : true
+                    };
+                    if ( details.brunch ) nameRsvp.brunch = details.brunch;
+                    if ( details.dinner ) nameRsvp.dinner = details.dinner;
+                    data.party.push(nameRsvp);
+                }
+
+                console.log('submitting payload', data);
+
+                $.ajax({
+                    url: 'https://script.google.com/macros/s/AKfycbztgTxGYXDaq-wzDna_qUgAuGYY8I--7gDpISJXP7ZOOL8dmKQ/exec',
+                    type: 'POST',
+                    data,
+                    success: (res) => {
+                        if (!halt) this.stepManager.proceed();
+                    },
+                    error(err) {
+                        console.log('there was an error', err);
+                    }
+                });
             }
         };
     }
@@ -128,14 +161,15 @@ class FormComponent extends React.Component {
     render() {
 
         let step2Style = { display: 'none' };
-
         let step3Style = $.extend({}, step2Style);
+        let step4Style = $.extend({}, step2Style);
 
         return (
             <div>
                 <StepOne ref="1" stepManager={this.stepManager} handler={handler} />
                 {this.state.step > 1 ? <StepTwo ref="2" style={step2Style} stepManager={this.stepManager} response={this.state} /> : ''}
-                {this.state.step === 3 ? <StepThree ref="3" style={step3Style} stepManager={this.stepManager} /> : ''}
+                {this.state.step > 2 ? <StepThree ref="3" style={step3Style} stepManager={this.stepManager} /> : ''}
+                {this.state.step > 3 ? <StepFour ref="4" style={step4Style} stepManager={this.stepManager} /> : ''}
             </div>
         );
     }

@@ -16,11 +16,11 @@ class StepTwo extends React.Component {
 	render() {
 
 		let hasRsvped = {
-			display: this.props.response.rsvp === true ? 'block' : 'none'
+			display: this.props.response.rsvp === true || this.props.response.rsvp === false ? 'block' : 'none'
 		};
 
 		let hasNotRsvped = {
-			display: this.props.response.rsvp === true ? 'none' : 'block'
+			display: this.props.response.rsvp === true || this.props.response.rsvp === false ? 'none' : 'block'
 		}
 
 		let name = this.props.response.name ? this.props.response.name.split(' ')[0] : '';
@@ -119,7 +119,14 @@ class StepTwo extends React.Component {
 			}
 		};
 
-		let showPartyLinkStyle = { display: this.state.showParty ? 'none' : 'block' };
+		let marginStyle = {
+			display: 'block',
+			margin: '10px 0'
+		};
+
+		let showPartyLinkStyle = $.extend({}, marginStyle, { 
+			display: this.state.showParty ? 'none' : 'block'
+		});
 		let showPartyStyle = { display: this.state.showParty ? 'block' : 'none' };
 
 		let rsvpForAll = () => {
@@ -131,22 +138,37 @@ class StepTwo extends React.Component {
 		let checkRsvp = (e) => {
 			e.preventDefault();
 
+			let noneAttending = true;
+
 			// need to make sure all radio buttons have been checked
 			if ( !(this.props.response.name in this.props.stepManager.getSubmitRsvp()) ) {
+				
 				return rsvpForAll.call(this);
 			
 			// if showing the party, make sure they've checked all
 			} else if ( this.state.showParty ) {
 				for ( let name in this.props.response.party ) {
+					if ( this.props.stepManager.getSubmitRsvp()[name] === true ) {
+						noneAttending = false;
+					}
 					if ( !(name in this.props.stepManager.getSubmitRsvp()) ) {
-
-						console.log('no rsvp for party');
 						return rsvpForAll.call(this);
 					}
 				}
 				this.props.stepManager.proceed();
 			} else {
+				// if just rsvp-ing for self, see if attending
+				for ( let name in this.props.stepManager.getSubmitRsvp() ) {
+					if ( this.props.stepManager.getSubmitRsvp()[name] === true ) {
+						noneAttending = false;
+					}
+				}
 				this.props.stepManager.proceed();
+			}
+
+			if ( noneAttending ) {
+				// submit but do not proceed on success callback
+				this.props.stepManager.submit(true);
 			}
 		};
 
@@ -157,7 +179,7 @@ class StepTwo extends React.Component {
 					{showInputs.call(this, member)}
 	            </div>
 			);
-		}).concat(<a href="#" key="nvm" onClick={hideTheParty.bind(this)}>Never mind, I am just going to RSVP for myself.</a>);
+		}).concat(<a href="#" key="nvm" onClick={hideTheParty.bind(this)} style={marginStyle}>Never mind, I am just going to RSVP for myself.</a>);
 		party.unshift(<h3 key="">Your party:</h3>);
 
 		let submitStyle = {
