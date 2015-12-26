@@ -87,6 +87,4 @@ aaadP"'             `""Yb,       .-'  _.'- '  _.-'     (
             <div class="lazy-load save-the-date-bg" data-bg="<?php echo $bg; ?>"></div>
         <?php } ?>
 
-        <header></header>
-
         <main class="h100">

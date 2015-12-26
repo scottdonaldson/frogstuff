@@ -1,5 +1,10 @@
 <?php include('includes/header.php'); ?>
 
+	<div class="rsvp-home-header">
+		<a href="<?= $url; ?>/rsvp.php">It's time &mdash; click here to RSVP for Lisa&nbsp;&amp;&nbsp;Scott's&nbsp;wedding!</a><br>
+		<span>Or, scroll down to read more...</span>
+	</div>
+
 	<div>
 		<img class="wreath" src="img/wreath.png">
 		<img id="flower-tl" class="flower" src="img/flower-tl.png">
@@ -58,7 +63,7 @@
 
 		<div class="halfcolumn right clearfix clear">
 			<h3>A Local's Walking Tour</h3>
-			<p>Interested in a local’s stroll through DC? Head over to the MT Vernon Metro stop, buy yourself a metro card and take the the green line up to Columbia Heights (no transfers necessary!). Stop by Sticky Fingers (we literally lived three windows above) for a vegan muffin (you won’t even know! we promise!). After wandering through the Park, stop by Pho 14 for lunch and try the veggie Pho (It’s made with apples!). If you’ve still got gas in the engine, you can walk down to Dupont circle where you can check out Books-A-Million or Kramer Books and people watch. See, it’s not all brutalist office building after all! </p>
+			<p>Interested in a local’s stroll through DC? Head over to the Mt. Vernon Metro stop, buy yourself a metro card and take the the green line up to Columbia Heights (no transfers necessary!). Stop by Sticky Fingers (we literally lived three windows above) for a vegan muffin (you won’t even know! we promise!). After wandering through the Park, stop by Pho 14 for lunch and try the veggie Pho (It’s made with apples!). If you’ve still got gas in the engine, you can walk down to Dupont circle where you can check out Books-A-Million or Kramer Books and people watch. See, it’s not all brutalist office building after all! </p>
 			<a href="https://www.google.com/maps/d/edit?mid=zRNfw6tt-0CE.kzVJlxw6FzSg&usp=sharing" target="_blank">I'm ready to mosey!</a>
 		</div>
 		<img class="halfcolumn clearfix" src="img/rowhouses.png" alt="">

@@ -40,24 +40,39 @@ class StepTwo extends React.Component {
 		};
 
 		let plusOne = this.props.response.party;
+		let hasPlusOne = false;
 		let showPlusOne = {
 			display: 'none'
 		};
+
+		let showPartyLinkStyle = $.extend({}, marginStyle, { 
+			display: this.state.showParty ? 'none' : 'block'
+		});
 		
 		if ( plusOne && Object.keys(plusOne)[0] === '1' ) {
+			hasPlusOne = true;
 			showPlusOne.display = 'block';
-			plusOne = 'Would you like to RSVP for a guest?';
+			showPartyLinkStyle.display = 'none';
 		} else {
 			plusOne = '';
 		}
 
-		let partyMembers = Object.keys(this.props.response.party || {});
-
-		if ( showPlusOne.display === 'block' ) {
-			this.setState({
-				showParty: false
-			});
+		let plusOneInvite = () => {
+			let style = {
+				margin: '10px 0'
+			};
+			return hasPlusOne ? (
+				<div>
+					<div style={style}>And, would you like to RSVP for a guest?</div>
+					<input type="radio" name={"attending-guest"} id={"attending-guest-yes"} onChange={manageRsvp.bind(this, 'Guest', true)} />
+	            	<label htmlFor={"attending-guest-yes"}>Yes</label><br />
+	            	<input type="radio" name={"attending-guest"} id={"attending-guest-no"} onChange={manageRsvp.bind(this, 'Guest', false)} />
+	            	<label htmlFor={"attending-guest-no"}>No</label>
+	            </div>
+			) : '';
 		}
+
+		let partyMembers = Object.keys(this.props.response.party || {});
 
 		let manageRsvp = (name, rsvp) => {
 			// update RSVP
@@ -124,9 +139,6 @@ class StepTwo extends React.Component {
 			margin: '10px 0'
 		};
 
-		let showPartyLinkStyle = $.extend({}, marginStyle, { 
-			display: this.state.showParty ? 'none' : 'block'
-		});
 		let showPartyStyle = { display: this.state.showParty ? 'block' : 'none' };
 
 		let rsvpForAll = () => {
@@ -180,7 +192,7 @@ class StepTwo extends React.Component {
 	            </div>
 			);
 		}).concat(<a href="#" key="nvm" onClick={hideTheParty.bind(this)} style={marginStyle}>Never mind, I am just going to RSVP for myself.</a>);
-		party.unshift(<h3 key="">Your party:</h3>);
+		party.unshift(!hasPlusOne ? <h3 key="">Your party:</h3> : '');
 
 		let submitStyle = {
 			marginTop: 20
@@ -198,7 +210,7 @@ class StepTwo extends React.Component {
                 	{showInputs.call(this, this.props.response.name)}
 
                 	<div style={showPlusOne}>
-                		{plusOne}
+                		{plusOneInvite()}
                 	</div>
 
                 	<a href="#" onClick={showTheParty} style={showPartyLinkStyle}>{"Would you like to RSVP for someone else in your party?"}</a>

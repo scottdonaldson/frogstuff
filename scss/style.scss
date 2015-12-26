@@ -278,6 +278,32 @@ $halfcolumnpadding: 6%;
 
 }
 
+.rsvp-home-header {
+    background: $grey;
+    font-size: 2em;
+    padding: 2em 4em;
+    text-align: center;
+
+    @media screen and (max-width: 900px) {
+        font-size: 1.5em;
+    }
+
+    @media screen and (max-width: 500px) {
+        font-size: 1em;
+    }
+
+    a {
+        border-bottom: 1px solid;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    span {
+        color: #fff;
+        font-size: 15px;
+    }
+}
+
 // ---------- Save the Date
 
 body.save-the-date {
