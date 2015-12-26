@@ -92,7 +92,7 @@ class StepThree extends React.Component {
 		return (
 			<form style={this.props.style} onSubmit={finishIt.bind(this)}>
 				<div style={showIfOne} ref="showIfOne">
-	                <h2>One last thing... food!</h2>
+	                <h2>A few more details we need from you...</h2>
 	                {party}
 	                <p>Any dietary restrictions?</p>
 	                <textarea onChange={setRestrictions.bind(this)} onKeyup={setRestrictions.bind(this)}></textarea>

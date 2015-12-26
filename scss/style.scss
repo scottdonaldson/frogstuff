@@ -279,14 +279,10 @@ $halfcolumnpadding: 6%;
 }
 
 .rsvp-home-header {
-    background: $grey;
-    font-size: 2em;
-    padding: 2em 4em;
+    background: $greenbean;
+    font-size: 1.6em;
+    padding: 1.5em 4em;
     text-align: center;
-
-    @media screen and (max-width: 900px) {
-        font-size: 1.5em;
-    }
 
     @media screen and (max-width: 500px) {
         font-size: 1em;
