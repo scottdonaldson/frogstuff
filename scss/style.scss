@@ -1,3 +1,5 @@
+$main_break: 1050px;
+
 //-----------COLORS
 
 $grey: #666;
@@ -10,6 +12,12 @@ $error: #de6d77;
 @import "reset";
 @import "fonts";
 @import "rsvp";
+
+.abs { position: absolute; }
+.t0 { top: 0; }
+.b0 { bottom: 0; }
+.r0 { right: 0; }
+.l0 { left: 0; }
 
 //-----------FONTS
 
@@ -235,6 +243,29 @@ $halfcolumnpadding: 6%;
 
 #flower-bl{
   bottom: 0;
+}
+
+// Home page images
+#home-map,
+#home-museums,
+#home-gifting {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+    #home-before-map {
+        padding-top: 9%;
+        @media screen and (max-width: $main_break) { padding-top: 0; }
+    }
+
+#home-museums {
+    padding-top: 10%;
+    @media screen and (max-width: $main_break) { padding-top: 0; }
+}
+
+#home-gifting {
+    padding: 4% 0 8%;
 }
 
 .toptext {
@@ -637,7 +668,7 @@ input[type="submit"] {
 }
 
 
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: $main_break) {
 
 	.divider{
 		width: 40%;

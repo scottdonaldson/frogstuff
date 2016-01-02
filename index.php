@@ -38,15 +38,17 @@
 	</div>
 
 	<div class="content">
-		<div class="clearfix halfcolumn">
+		<div class="halfcolumn" id="home-before-map">
 			<img class="cursive" alt="Where to Stay" src="img/wheretostay.png">
-			<p>A block of rooms have been booked at the historic Morrison Clark Hotel. <br>
+			<p>A block of rooms have been booked at the historic Morrison Clark Hotel.</p>
 			<p>It's a 6 minute walk to reception and a 7 minute walk to metro.</p>
-			<p><a href="https://www.google.com/maps/d/edit?mid=zRNfw6tt-0CE.k0nw9bIx8P_4&usp=sharing" target="_blank">1015 L St NW, Washington DC 20001 </a><br>
-			(202) 898-1200 </p>
+			<p><a href="https://www.google.com/maps/d/edit?mid=zRNfw6tt-0CE.k0nw9bIx8P_4&usp=sharing" target="_blank">1015 L St NW, Washington DC 20001</a><br>
+			(202) 898-1200</p>
 			<p>Just mention you’re booking as part of Lisa &amp; Scott’s wedding block.</p>
 		</div>
-		<img class="halfcolumn clearfix" src="img/map.jpg" alt="">
+		<div class="halfcolumn clearfix">
+			<img id="home-map" src="img/map.jpg" alt="">
+		</div>
 	</div>
 
 	<img class="divider" src="img/divider2.png" alt="">
@@ -59,14 +61,19 @@
 			<p> Ready to pack up your fanny pack and try out some off-the-beaten path museums? Start off the day by heading over to the Colombe a hidden coffee shop in the alley behind the reception gallery. Then walk on over to either the Building Museum or the Postal Museum (or both if you’re feeling frisky!). Once you’re museumed out, drop into either Graffiato’s (funky small plates) or Busboys &amp; Poets (DC institution sandwich shop) for a scrumptious lunch. </p>
 			<a href="https://www.google.com/maps/d/edit?mid=zRNfw6tt-0CE.kzVJlxw6FzSg&usp=sharing" target="_blank">Let's get site-seeing!</a>
 		</div>
-		<img class="halfcolumn clearfix" src="img/museums.png" alt="">
+		<div class="halfcolumn right clearfix">
+			<img id="home-museums" src="img/museums.png" alt="">
+		</div>
+	</div>
+
+	<div class="content clearfix">
 
 		<div class="halfcolumn right clearfix clear">
 			<h3>A Local's Walking Tour</h3>
 			<p>Interested in a local’s stroll through DC? Head over to the Mt. Vernon Metro stop, buy yourself a metro card and take the the green line up to Columbia Heights (no transfers necessary!). Stop by Sticky Fingers (we literally lived three windows above) for a vegan muffin (you won’t even know! we promise!). After wandering through the Park, stop by Pho 14 for lunch and try the veggie Pho (It’s made with apples!). If you’ve still got gas in the engine, you can walk down to Dupont circle where you can check out Books-A-Million or Kramer Books and people watch. See, it’s not all brutalist office building after all! </p>
 			<a href="https://www.google.com/maps/d/edit?mid=zRNfw6tt-0CE.kzVJlxw6FzSg&usp=sharing" target="_blank">I'm ready to mosey!</a>
 		</div>
-		<img class="halfcolumn clearfix" src="img/rowhouses.png" alt="">
+		<img class="halfcolumn clearfix" id="home-rowhouses" src="img/rowhouses.png" alt="">
 	</div>
 
 	<img class="divider" src="img/divider.png" alt="">
@@ -83,7 +90,7 @@
 			<a href="https://donate.doctorswithoutborders.org/onetime.cfm" alt="Donate to Doctor's Without Borders" target="_blank">Doctor's Without Borders</a><br>
 			<a href="https://donate.charitywater.org/donate" alt="Donate to Charity:Water" target="_blank">Charity:Water</a> 
 		</div>
-		<img class="halfcolumn clearfix" src="img/gifting.jpg" alt="">
+		<img class="halfcolumn right clearfix" id="home-gifting" src="img/gifting.jpg" alt="">
 	</div>
 
 	<div>
