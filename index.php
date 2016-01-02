@@ -20,7 +20,7 @@
 			<img class="cursive fullwidth" alt="The Celebration" src="img/celebration.png">
 			<h3>Join us for Dinner, Dancing &amp; Vows of Everlasting Commitment</h3>
 
-			<p>We will be legally locking this down in a private courthouse ceremony with immediate family members. We invite you to join us for the celebration which will involving eat, drinking, dancing and a as much affirmation of our committment as we can muster.</p>
+			<p>We invite you to join us for the celebration which will involving eating, drinking, dancing and as much affirmation of our commitment as we can muster (yeah, we're doing the ceremony a little weird).</p>
 			<p>Saturday, May 21, 2016 <br>
 				at five in the evening</p>
 			<p>Long View Gallery<br>
@@ -31,7 +31,7 @@
 
 	 		<h3>Send Off Buffet Brunch </h3>
 			<p> Morning After Reception <br>
-				Morrison Clark Hotel <br>
+				Morrison Clark Inn <br>
 				9am - 11am <br>
 			</p>
 		</div>
@@ -40,7 +40,7 @@
 	<div class="content">
 		<div class="halfcolumn" id="home-before-map">
 			<img class="cursive" alt="Where to Stay" src="img/wheretostay.png">
-			<p>A block of rooms have been booked at the historic Morrison Clark Hotel.</p>
+			<p>A block of rooms have been booked at the historic Morrison Clark Inn.</p>
 			<p>It's a 6 minute walk to reception and a 7 minute walk to metro.</p>
 			<p><a href="https://www.google.com/maps/d/edit?mid=zRNfw6tt-0CE.k0nw9bIx8P_4&usp=sharing" target="_blank">1015 L St NW, Washington DC 20001</a><br>
 			(202) 898-1200</p>
@@ -82,8 +82,8 @@
 	<div class="content clearfix">
 		<div class="clearfix halfcolumn"> 
 
-			<img class="cursive" alt="Gifting" src="img/gifting.png">
-			<p>In the past 6 years we've lived in seven apartments and not sure we're we'll be moving to in another year. So we request that you don't bring us gifts. We're fortunate enough to have you in our lives (and hopefully at the celebration). Instead of gifts, we'd love to have you make a donation. </p>
+			<img class="cursive" alt="Gifting" src="img/gift-text.jpg">
+			<p>In the past 6 years we've lived in seven apartments and not sure we're we'll be moving to in another year. So we request that you don't bring us gifts. We're fortunate enough to have you in our lives (and hopefully at the celebration). Instead of gifts, if you're feeling generous, we'd love to have you make a donation. </p>
 
 			<p>Donate where you feel like it will do the most good but here are two organizations we're vetted for you:</p>
 
