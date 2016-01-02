@@ -20,20 +20,21 @@ class StepThree extends React.Component {
 
 		let party = Object.keys(submitRsvp).map((name) => {
 			
-			let leftMar = (amt) => { 
-				return { marginLeft: amt };
-			};
+			let leftMar = (amt) => { return { marginLeft: amt }; };
+			let topMar = (amt) => { return { marginTop: amt }; };
+
+			let labelStyle = $.extend({}, leftMar(5), topMar(10));
 
 			if ( submitRsvp[name] ) {
 				oneRsvp = true;
 				return (
 					<div key={name}>
-						<p>{name}</p>
+						<h3>{name}</h3>
 						<input type="radio" name={"dinner-" + util.scrub(name)} id={"fish-" + util.scrub(name)} />
 		            	<label htmlFor={"fish-" + util.scrub(name)}>Salmon</label><br />
 		            	<input type="radio" name={"dinner-" + util.scrub(name)} id={"veg-" + util.scrub(name)} />
 		            	<label htmlFor={"veg-" + util.scrub(name)}>Gnocchi (Vegetarian)</label><br />
-		            	<label htmlFor={"brunch-" + util.scrub(name)} style={leftMar(0)}>I will be attending brunch on May 22nd: <input id={"brunch-" + util.scrub(name)} type="checkbox" style={leftMar(5)} /></label>
+		            	<label htmlFor={"brunch-" + util.scrub(name)} style={leftMar(0)}>I will be attending brunch on May 22nd: <input id={"brunch-" + util.scrub(name)} type="checkbox" style={labelStyle} /></label>
 					</div>
 				);
 			}

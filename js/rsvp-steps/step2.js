@@ -23,6 +23,11 @@ class StepTwo extends React.Component {
 			display: this.props.response.rsvp === true || this.props.response.rsvp === false ? 'none' : 'block'
 		}
 
+		let marginStyle = {
+			display: 'block',
+			margin: '10px 0'
+		};
+
 		let name = this.props.response.name ? this.props.response.name.split(' ')[0] : '';
 
 		let rsvpText = () => {
@@ -48,11 +53,23 @@ class StepTwo extends React.Component {
 		let showPartyLinkStyle = $.extend({}, marginStyle, { 
 			display: this.state.showParty ? 'none' : 'block'
 		});
+
+		let rsvpForAll = () => {
+			this.setState({
+				errorMessage: 'Hey, you haven\'t finished your RSVP! Please finish before moving on. We promise it\'ll be worth your while.'
+			});
+		};
 		
 		if ( plusOne && Object.keys(plusOne)[0] === '1' ) {
 			hasPlusOne = true;
 			showPlusOne.display = 'block';
 			showPartyLinkStyle.display = 'none';
+
+		// no plus one or party
+		} else if ( !plusOne || Object.keys(plusOne).length === 0 ) {
+			console.log('no plus one');
+			showPartyLinkStyle.display = 'none';
+		// not needed?
 		} else {
 			plusOne = '';
 		}
@@ -63,7 +80,7 @@ class StepTwo extends React.Component {
 			};
 			return hasPlusOne ? (
 				<div>
-					<div style={style}>And, would you like to RSVP for a guest?</div>
+					<div style={style}>And, are you bringing a guest?</div>
 					<input type="radio" name={"attending-guest"} id={"attending-guest-yes"} onChange={manageRsvp.bind(this, 'Guest', true)} />
 	            	<label htmlFor={"attending-guest-yes"}>Yes</label><br />
 	            	<input type="radio" name={"attending-guest"} id={"attending-guest-no"} onChange={manageRsvp.bind(this, 'Guest', false)} />
@@ -134,18 +151,7 @@ class StepTwo extends React.Component {
 			}
 		};
 
-		let marginStyle = {
-			display: 'block',
-			margin: '10px 0'
-		};
-
 		let showPartyStyle = { display: this.state.showParty ? 'block' : 'none' };
-
-		let rsvpForAll = () => {
-			this.setState({
-				errorMessage: 'Hey, you haven\'t finished your RSVP! Please finish before moving on. We promise it\'ll be worth your while.'
-			});
-		};
 
 		let checkRsvp = (e) => {
 			e.preventDefault();
@@ -155,6 +161,11 @@ class StepTwo extends React.Component {
 			// need to make sure all radio buttons have been checked
 			if ( !(this.props.response.name in this.props.stepManager.getSubmitRsvp()) ) {
 				
+				return rsvpForAll.call(this);
+
+			// if has a plus one, must check it
+			} else if ( hasPlusOne && !('Guest' in this.props.stepManager.getSubmitRsvp()) ) {
+
 				return rsvpForAll.call(this);
 			
 			// if showing the party, make sure they've checked all

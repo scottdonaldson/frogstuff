@@ -7,7 +7,7 @@ body.rsvp {
     height: 100vh;
 
     @media screen and (max-width: 900px) {
-        background-attachment: auto;
+        background-attachment: scroll;
         background-color: #222;
         background-image: url(../img/rsvp-sm.jpg);
         background-repeat: no-repeat;
@@ -34,6 +34,8 @@ body.rsvp {
         a { color: #eee; }
 
         @media screen and (max-width: 900px) {
+            bottom: auto;
+            position: absolute;
             opacity: 0.6;
             left: 5%;
             top: calc(46vw - 1em);
