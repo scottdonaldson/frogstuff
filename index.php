@@ -15,7 +15,7 @@
 
 
 	<div class="celebration">
-		<img class="background-img" src="img/Lisa&Scott-17.jpg">
+		<img class="background-img" src="img/celebration-bg2.jpg">
 		<div class="content toptext halfcolumn">
 			<img class="cursive fullwidth" alt="The Celebration" src="img/celebration.png">
 			<h3>Join us for Dinner, Dancing &amp; Vows of Everlasting Commitment</h3>
