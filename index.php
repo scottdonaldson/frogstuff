@@ -70,8 +70,8 @@
 
 		<div class="halfcolumn right clearfix clear">
 			<h3>A Local's Walking Tour</h3>
-			<p>Interested in a local’s stroll through DC? Head over to the Mt. Vernon Metro stop, buy yourself a Metro card, and take the the Green or Yellow Line up to Columbia Heights (no transfers necessary!). Stop by Sticky Fingers (we literally lived three windows above) for a vegan muffin (you won’t even know! we promise!). After wandering through the Park, stop by Pho 14 for lunch and try the veggie pho (it’s made with apples!). If you’ve still got gas in the engine, you can walk down to Dupont circle where you can check out Books-a-Million or Kramer Books and people watch. See, it’s not all Brutalist office buildings after all! </p>
-			<a href="https://www.google.com/maps/d/edit?mid=zRNfw6tt-0CE.kzVJlxw6FzSg&usp=sharing" target="_blank">I'm ready to mosey!</a>
+			<p>Interested in a local’s stroll through DC? Head over to the Mt. Vernon Metro stop, buy yourself a Metro card, and take the the Green or Yellow Line up to Columbia Heights (no transfers necessary!). Stop by Sticky Fingers (we literally lived three windows above) for a vegan muffin (you won’t even know! we promise!). After wandering through Meridian Hill Park, stop by Pho 14 for lunch and try the veggie pho (it’s made with apples!). If you’ve still got gas in the engine, you can walk down to Dupont circle where you can check out Books-a-Million or Kramer Books and people watch. See, it’s not all Brutalist office buildings after all! </p>
+			<a href="https://www.google.com/maps/d/u/0/viewer?mid=zRNfw6tt-0CE.kZkLc93G_asM" target="_blank">I'm ready to mosey!</a>
 		</div>
 		<img class="halfcolumn clearfix" id="home-rowhouses" src="img/rowhouses.png" alt="">
 	</div>
