@@ -20,7 +20,7 @@
 			<img class="cursive fullwidth" alt="The Celebration" src="img/celebration.png">
 			<h3>Join us for Dinner, Dancing &amp; Vows of Everlasting Commitment</h3>
 
-			<p>We invite you to join us for the celebration, which will involving eating, drinking, dancing, and as much affirmation of our commitment as we can muster (yeah, the ceremony will be a little weird).</p>
+			<p>We invite you to join us for the celebration, which will involve a brief reading of vows followed by eating, drinking, dancing &mdash; a tried and true recipe for a night of merriment.</p>
 			<p>Saturday, May 21, 2016 <br>
 				at five in the evening</p>
 			<p>Long View Gallery<br>
