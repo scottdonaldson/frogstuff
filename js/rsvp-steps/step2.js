@@ -50,9 +50,10 @@ class StepTwo extends React.Component {
 			display: 'none'
 		};
 
-		let showPartyLinkStyle = $.extend({}, marginStyle, { 
-			display: this.state.showParty ? 'none' : 'block'
-		});
+		let showPartyLinkStyle = { 
+			display: this.state.showParty ? 'none' : 'block',
+			margin: '20px 0 10px'
+		};
 
 		let rsvpForAll = () => {
 			this.setState({
@@ -67,7 +68,6 @@ class StepTwo extends React.Component {
 
 		// no plus one or party
 		} else if ( !plusOne || Object.keys(plusOne).length === 0 ) {
-			console.log('no plus one');
 			showPartyLinkStyle.display = 'none';
 		// not needed?
 		} else {
@@ -202,7 +202,12 @@ class StepTwo extends React.Component {
 					{showInputs.call(this, member)}
 	            </div>
 			);
-		}).concat(<a href="#" key="nvm" onClick={hideTheParty.bind(this)} style={marginStyle}>Never mind, I am just going to RSVP for myself.</a>);
+		}).concat(
+			<div style={marginStyle}>
+				<a href="#" key="nvm1" onClick={hideTheParty.bind(this)}>Never mind, I am just going to RSVP for myself.</a>
+				<a href="#" key="nvm2" className="no-underline" onClick={hideTheParty.bind(this)}> ▴</a>
+			</div>
+		);
 		party.unshift(!hasPlusOne ? <h3 key="">Your party:</h3> : '');
 
 		let submitStyle = {
@@ -224,7 +229,10 @@ class StepTwo extends React.Component {
                 		{plusOneInvite()}
                 	</div>
 
-                	<a href="#" onClick={showTheParty} style={showPartyLinkStyle}>{"Would you like to RSVP for someone else in your party?"}</a>
+                	<div style={showPartyLinkStyle}>
+						<a href="#" onClick={showTheParty}>Would you like to RSVP for someone else in your party?</a>
+						<a href="#" className="no-underline" onClick={showTheParty}> ▾</a>
+					</div>
 
                 	<div style={showPartyStyle}>
                 		{party}

@@ -19,6 +19,10 @@ $error: #de6d77;
 .r0 { right: 0; }
 .l0 { left: 0; }
 
+.no-underline {
+    text-decoration: none !important;
+}
+
 //-----------FONTS
 
 
@@ -328,6 +332,16 @@ $halfcolumnpadding: 6%;
     span {
         color: #fff;
         font-size: 15px;
+    }
+}
+
+.home-footer {
+    margin-top: 6%;
+
+    .see-you-there {
+        @media screen and (max-width: 840px) {
+            display: none;
+        }
     }
 }
 

@@ -87,7 +87,7 @@ class StepOne extends React.Component {
 			<div>
 				<form style={this.props.style} onSubmit={checkName}>
 	                <h2>{"Hi! We're glad you've decided to RSVP and (hopefully!) celebrate our wedding with us."}</h2>
-	                <p>{"Enter your full name below and let's get started:"}</p>
+	                <p>{"Enter your full name (just yours) below and let's get started:"}</p>
 	                <input className={inputClass} ref="your-name" name={random} type="text" onChange={removeError} />
 	                <div className="clearfix">
 		                <input type="submit" value="Ok, let's go!" />

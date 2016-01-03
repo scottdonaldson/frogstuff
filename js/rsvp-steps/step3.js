@@ -34,7 +34,7 @@ class StepThree extends React.Component {
 		            	<label htmlFor={"fish-" + util.scrub(name)}>Salmon</label><br />
 		            	<input type="radio" name={"dinner-" + util.scrub(name)} id={"veg-" + util.scrub(name)} />
 		            	<label htmlFor={"veg-" + util.scrub(name)}>Gnocchi (Vegetarian)</label><br />
-		            	<label htmlFor={"brunch-" + util.scrub(name)} style={leftMar(0)}>I will be attending brunch on May 22nd: <input id={"brunch-" + util.scrub(name)} type="checkbox" style={labelStyle} /></label>
+		            	<label htmlFor={"brunch-" + util.scrub(name)} style={leftMar(0)}>Will be attending brunch on May 22nd: <input id={"brunch-" + util.scrub(name)} type="checkbox" style={labelStyle} /></label>
 					</div>
 				);
 			}
@@ -93,7 +93,7 @@ class StepThree extends React.Component {
 		return (
 			<form style={this.props.style} onSubmit={finishIt.bind(this)}>
 				<div style={showIfOne} ref="showIfOne">
-	                <h2>A few more details we need from you...</h2>
+	                <h2>Yay! Now we just need a few more details...</h2>
 	                {party}
 	                <p>Any dietary restrictions?</p>
 	                <textarea onChange={setRestrictions.bind(this)} onKeyup={setRestrictions.bind(this)}></textarea>

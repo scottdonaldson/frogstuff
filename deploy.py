@@ -3,25 +3,35 @@ import requests
 import boto # AWS python SDK
 from boto.s3.key import Key
 
-# CONFIG
+# must accept one argument: www or staging
+if len(sys.argv) == 2:
+	target = sys.argv[1]
+else:
+	print 'Specify a target: www or staging'
+	sys.exit()
+
 url = 'http://localhost/frogstuff/' # local endpoint
-bucket_name = 'bestfinestwedding.com'
+if target == 'www':
+	bucket_name = 'bestfinestwedding.com'
+elif target == 'staging':
+	bucket_name = 'staging.bestfinestwedding.com'
 
 S3 = boto.connect_s3()
 bucket = S3.get_bucket(bucket_name)
 
-html = [
-	'savethedate.php'
-]
+html = {
+	'index.php': 'index.html',
+	'rsvp.php': 'rsvp/index.html'
+}
 
-for slug in html:
+for key, value in html.iteritems():
 
-	r = requests.get( url + slug + '/?deploy=true&deploy-url=http://' + bucket_name)
+	r = requests.get( url + key + '/?deploy=true&deploy-url=http://' + bucket_name)
 
-	print 'deploying ' + slug
+	print 'deploying ' + key
 
 	k = Key(bucket)
-	k.key = 'index.html'
+	k.key = value
 	k.content_type = 'text/html'
 	k.set_contents_from_string(r.content)
 
@@ -41,6 +51,7 @@ for slug in css:
 	k.set_contents_from_string(r.content)
 
 js = [
+	'js/output/rsvp.js',
 	'js/main.js',
 	'js/get-address.js',
 	'js/plugins.js',
