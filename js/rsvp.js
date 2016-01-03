@@ -128,17 +128,19 @@ class FormComponent extends React.Component {
                     data.party.push(nameRsvp);
                 }
 
-                console.log('submitting payload', data);
-
                 $.ajax({
-                    url: 'https://script.google.com/macros/s/AKfycbztgTxGYXDaq-wzDna_qUgAuGYY8I--7gDpISJXP7ZOOL8dmKQ/exec',
+                    url: 'https://script.google.com/macros/s/AKfycbztgTxGYXDaq-wzDna_qUgAuGYY8I--7gDpISJXP7ZOOL8dmKQ/exec?t=' + new Date().getTime(),
                     type: 'POST',
                     data,
                     success: (res) => {
                         if (!halt) this.stepManager.proceed();
                     },
-                    error(err) {
-                        console.log('there was an error', err);
+                    // ugly hack for Google Apps Scripts problems...
+                    // hope nothing goes wrong!!!
+                    complete: () => {
+                        if ( /iPad|iPhone|iPod/.test(navigator.platform) ) {
+                            if (!halt) this.stepManager.proceed();
+                        }
                     }
                 });
             }
