@@ -1,5 +1,6 @@
 body.rsvp {
     background-attachment: fixed;
+    background-color: #222;
     background-image: url(../img/Lisa&Scott-17.jpg);
     background-size: cover;
     background-position: 100% 50%;
@@ -8,7 +9,6 @@ body.rsvp {
 
     @media screen and (max-width: 900px) {
         background-attachment: scroll;
-        background-color: #222;
         background-image: url(../img/rsvp-sm.jpg);
         background-repeat: no-repeat;
         background-position: 0 0;
