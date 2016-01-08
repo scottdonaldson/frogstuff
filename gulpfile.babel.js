@@ -58,6 +58,7 @@ function build(watch) {
                 loadMaps: true
             }))
             .pipe(sourcemaps.write())
+            .pipe(uglify())
             .pipe(gulp.dest('js/output'));
 
         hrTime = process.hrtime();
