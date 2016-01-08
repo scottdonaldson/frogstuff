@@ -71,7 +71,7 @@ class StepThree extends React.Component {
 					
 					} else if ( this.props.stepManager.getSubmitRsvp()[name] ) {
 
-						let dinnerChoice = $('[name="dinner-' + util.scrub(name) + '"]').attr('id');
+						let dinnerChoice = $('[name="dinner-' + util.scrub(name) + '"]').filter(':checked').attr('id');
 						let label = $('label[for="' + dinnerChoice + '"]');
 					
 						this.props.stepManager.rsvp.call(null, name, {
