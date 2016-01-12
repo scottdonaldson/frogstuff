@@ -85,7 +85,7 @@
 			<img class="cursive" alt="Gifting" src="img/gift-text.jpg">
 			<p>In the past six years we've lived in seven apartments and we're not sure where we'll be moving to in another year. So we request that you don't bring us gifts. We're fortunate enough to have you in our lives (and hopefully at the celebration). Instead of gifts, if you're feeling generous, we'd love to have you make a donation. </p>
 
-			<p>Donate where you feel like it will do the most good but here are two organizations we're vetted for you:</p>
+			<p>Donate where you feel like it will do the most good but here are two organizations we've vetted for you:</p>
 
 			<a href="https://donate.doctorswithoutborders.org/onetime.cfm" alt="Donate to Doctor's Without Borders" target="_blank">Doctors Without Borders</a><br>
 			<a href="https://donate.charitywater.org/donate" alt="Donate to Charity:Water" target="_blank">Charity:Water</a> 
