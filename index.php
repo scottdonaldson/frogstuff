@@ -53,7 +53,7 @@
 
 	<img class="divider" src="img/divider2.png" alt="">
 
-	<div class="content clearfix">
+	<div class="content clearfix" id="what-to-do">
 		
 		<div class="clearfix halfcolumn">
 			<img class="cursive" alt="What to Do in DC" src="img/whattodo.png">
