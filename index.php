@@ -1,10 +1,5 @@
 <?php include('includes/header.php'); ?>
 
-	<div class="rsvp-home-header">
-		<a href="<?= $url; ?>/rsvp">It's time &mdash; click here to RSVP for Lisa&nbsp;&amp;&nbsp;Scott's&nbsp;wedding!</a><br>
-		<span>Or, scroll down to read more...</span>
-	</div>
-
 	<div>
 		<img class="wreath" src="img/wreath.png">
 		<img id="flower-tl" class="flower" src="img/flower-tl.png">
